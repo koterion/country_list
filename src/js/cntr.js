@@ -304,19 +304,16 @@
 
             flag.on('click',function () {
                 $(this).parent().toggleClass('active');
-                $('body').toggleClass('cntr');
             });
         } else {
             that.on('click',function () {
                 $(this).parent().toggleClass('active');
-                $('body').toggleClass('cntr');
             });
         }
 
         body.on('click',function(e){
-            if ($(this).hasClass('cntr') && !block.is(e.target) && block.has(e.target).length === 0){
+            if (block.hasClass('active') && !block.is(e.target) && block.has(e.target).length === 0){
                 block.removeClass('active');
-                $(this).removeClass('cntr');
             }
         });
 
@@ -343,7 +340,6 @@
                 block.removeClass('active').addClass('changed');
                 that.val($(this).data('name'));
                 phone.val($(this).data('phone'));
-                $('body').removeClass('cntr');
             });
         } else if (options.select){
             li.on('click',function(){
@@ -351,7 +347,6 @@
                 that.text($(this).data('name'));
                 input.val($(this).data('name'));
                 phone.val($(this).data('phone'));
-                $('body').removeClass('cntr');
             });
         } else if (options.flag){
             li.on('click',function(){
@@ -360,7 +355,6 @@
                 that.val($(this).data('phone'));
                 input.val($(this).data('name'));
                 flag.html('<span class="flag-'+$(this).data('code')+'"></span>');
-                $('body').removeClass('cntr');
             });
 
             that.on('keyup', function(){
@@ -384,7 +378,6 @@
                 block.removeClass('active').addClass('changed');
                 that.val($(this).data('phone'));
                 input.val($(this).data('name'));
-                $('body').removeClass('cntr');
             });
         }
 
