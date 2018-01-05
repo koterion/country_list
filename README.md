@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-1. Download the [latest release](https://github.com/IhorMnushco/cntr/releases/latest)
+1. Download the [latest release](https://github.com/koterion/cntr/releases/latest)
 
 2. Include the stylesheet
   ```html
@@ -22,7 +22,7 @@
   ```
   ## Demo and Examples
   
-  In folder build - index.html
+  [Cntr Plugin Demo](https://koterion.github.io/cntr/)
 
   ## Options
   

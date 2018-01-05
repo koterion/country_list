@@ -1,6 +1,6 @@
 'use strict';
 
-var build_way =   'build/',
+var build_way =   '',
 
     gulp =        require('gulp'), // npm install gulp
     rigger =      require('gulp-rigger'), // npm install gulp-rigger
