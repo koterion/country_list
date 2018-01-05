@@ -261,11 +261,9 @@
         var ul = block.find('.cntr-ls').find('ul');
 
         if (!options.select && !options.search){
-            that.on('keyup',function(){
-                var a = $(this);
-                if (a.val().search(/[^0-9]/ig) !== -1 && a.val().length > 0){
-                    var curr = a.val().replace(/[^0-9]/ig,'');
-                    a.val(curr);
+            that.on('keypress',function(event){
+                if (!(event.key.search(/[^0-9]/ig) === -1)){
+                    event.preventDefault();
                 }
             });
         }
@@ -307,7 +305,11 @@
             });
         } else {
             that.on('click',function () {
-                $(this).parent().toggleClass('active');
+                if ((!block.hasClass('changed') || that.val().length === 0) && !options.search){
+                    $(this).parent().toggleClass('active');
+                } else if (options.search) {
+                    $(this).parent().toggleClass('active');
+                }
             });
         }
 
@@ -355,6 +357,7 @@
                 that.val($(this).data('phone'));
                 input.val($(this).data('name'));
                 flag.html('<span class="flag-'+$(this).data('code')+'"></span>');
+                that.focus();
             });
 
             that.on('keyup', function(){
@@ -378,6 +381,7 @@
                 block.removeClass('active').addClass('changed');
                 that.val($(this).data('phone'));
                 input.val($(this).data('name'));
+                that.focus();
             });
         }
 
@@ -407,6 +411,17 @@
                 that.val(ul.find('li[data-code="'+current+'"]').data('phone'));
                 input.val(ul.find('li[data-code="'+current+'"]').data('name'));
             }
+        }
+
+        if (!options.search){
+            body.on('keypress',function(e){
+                if (block.hasClass('active') && !(e.key.search(/^[^\d+=()\[\]{}\\/^$|?*!@#%:;&,_.'"\s]+$/) === -1)){
+                    var scroll_el = block.find('.cntr-ls').find('li[data-search^='+String.fromCharCode(e.keyCode).toLowerCase()+']');
+                    if (scroll_el.length != 0) {
+                        ul.animate({ scrollTop: scroll_el[0].offsetTop - 20 }, 500);
+                    }
+                }
+            });
         }
     };
 })(jQuery);

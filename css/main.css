@@ -299,7 +299,7 @@ body ::selection {
 .form {
   max-width: 40rem;
   margin: 0 auto;
-  padding: 4rem 0;
+  padding: 3rem 0;
 }
 .form > * + * {
   margin-top: 2rem;
@@ -315,4 +315,19 @@ body ::selection {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+h1 {
+  text-align: center;
+}
+#wrapper {
+  padding: 4rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }

@@ -17,6 +17,7 @@
   width: 0;
   height: 0;
   transition: all .4s;
+  cursor: pointer;
 }
 .cntr-bl.active .cntr-ls {
   display: block;
@@ -108,6 +109,9 @@
 }
 .cntr-sl span {
   left: 10px;
+}
+.cntr-in {
+  cursor: pointer;
 }
 .flag-abkhazia,
 .flag-ad,
