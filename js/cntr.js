@@ -321,7 +321,13 @@
 
         if (options.search || options.select){
             phone = that.closest('form').find('input[type="tel"]');
-            block.addClass('arrow-show');
+            block.append('<span class="cntr-arrow"></span>');
+
+            var arrow = block.find('.cntr-arrow');
+
+            arrow.on('click',function(){
+                that.click();
+            })
         }
 
         if (options.search){
@@ -422,6 +428,12 @@
                     }
                 }
             });
+        }
+
+        if (body.height()-that.offset().top < 360 && body.height()-that.offset().top > 281){
+            ul.parent().addClass('cntr-middle');
+        } else if (body.height()-that.offset().top < 280){
+            ul.parent().addClass('cntr-top');
         }
     };
 })(jQuery);

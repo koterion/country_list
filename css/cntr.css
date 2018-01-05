@@ -7,22 +7,10 @@
       -ms-user-select: none;
           user-select: none;
 }
-.cntr-bl.arrow-show:after {
-  content: '';
-  position: absolute;
-  border: 5px solid transparent;
-  border-top: 5px solid #465e7c;
-  top: calc(47.5%);
-  right: 10px;
-  width: 0;
-  height: 0;
-  transition: all .4s;
-  cursor: pointer;
-}
 .cntr-bl.active .cntr-ls {
   display: block;
 }
-.cntr-bl.active.arrow-show:after {
+.cntr-bl.active .cntr-arrow {
   -webkit-transform: rotateX(180deg);
           transform: rotateX(180deg);
   top: calc(40%);
@@ -42,12 +30,12 @@
   left: 0;
   background-color: #304163;
   padding: 20px 20px 20px 35px;
-  max-height: 320px;
+  max-height: 100vh;
   z-index: 2;
   display: none;
 }
 .cntr-ls ul {
-  max-height: 28rem;
+  max-height: 280px;
   overflow: auto;
 }
 .cntr-ls ul::-webkit-scrollbar {
@@ -111,6 +99,26 @@
   left: 10px;
 }
 .cntr-in {
+  cursor: pointer;
+}
+.cntr-middle ul {
+  max-height: 220px;
+}
+.cntr-top {
+  top: 0;
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+}
+.cntr-arrow {
+  display: block;
+  position: absolute;
+  border: 5px solid transparent;
+  border-top: 5px solid #465e7c;
+  top: calc(47.5%);
+  right: 10px;
+  width: 0;
+  height: 0;
+  transition: all .4s;
   cursor: pointer;
 }
 .flag-abkhazia,
