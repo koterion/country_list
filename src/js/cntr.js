@@ -252,25 +252,30 @@
             current = that.data('current'),
             country,countryName,countryCode,phoneCode,phone,flag;
 
-        that.wrap('<div class="cntr-bl"></div>');
-        that.addClass('cntr-in');
+        that.addClass('cntr-in').wrap('<div class="cntr-bl"></div>');
 
         var block = that.parent();
-
-        block.append('<div class="cntr-ls"><ul></ul></div>');
-        var ul = block.find('.cntr-ls').find('ul');
-
-        if (!options.select && !options.search){
-            that.on('keypress',function(event){
-                if (!(event.key.search(/[^0-9]/ig) === -1)){
-                    event.preventDefault();
-                }
-            });
-        }
+        var ul = block.append('<div class="cntr-ls"><ul></ul></div>').find('.cntr-ls').find('ul');
 
         if (!options.search){
-            block.append('<input type="hidden" name="country">');
-            var input = block.find('input[name=country]');
+            var input = block.append('<input type="hidden" name="country">').find('input[name=country]');
+
+            body.on('keypress',function(e){
+                if (block.hasClass('active') && !(e.key.search(/^[^\d+=()\[\]{}\\/^$|?*!@#%:;&,_.'"\s]+$/) === -1)){
+                    var scroll_el = block.find('.cntr-ls').find('li[data-search^='+String.fromCharCode(e.keyCode).toLowerCase()+']');
+                    if (scroll_el.length != 0) {
+                        ul.animate({ scrollTop: scroll_el[0].offsetTop - 20 }, 500);
+                    }
+                }
+            });
+
+            if (!options.select && !options.search){
+                that.on('keypress',function(event){
+                    if (!(event.key.search(/[^0-9]/ig) === -1)){
+                        event.preventDefault();
+                    }
+                });
+            }
         }
 
         if (options.flags){
@@ -291,7 +296,7 @@
             }
         }
 
-        var li = block.find('.cntr-ls').find('li');
+        var li = ul.find('li');
 
         if (options.flag){
             block.append('<div class="cntr-sl"></div>');
@@ -321,9 +326,8 @@
 
         if (options.search || options.select){
             phone = that.closest('form').find('input[type="tel"]');
-            block.append('<span class="cntr-arrow"></span>');
 
-            var arrow = block.find('.cntr-arrow');
+            var arrow = block.append('<span class="cntr-arrow"></span>').find('.cntr-arrow');
 
             arrow.on('click',function(){
                 that.click();
@@ -341,6 +345,19 @@
                     $div.find('li[data-search^="'+$this.val().toLowerCase()+'"]').show();
                 } else {
                     $li.show();
+                }
+            });
+
+            that.on('keypress',function(e){
+                var key = e.charCode;
+                if(key === 13){
+                    $.each(li,function(){
+                        if($(this).css('display') !== 'none'){
+                            $(this).click();
+                            return false;
+                        }
+                    })
+                    return false;
                 }
             });
 
@@ -391,43 +408,62 @@
             });
         }
 
+        function geo (a,b){
+            a.val(ul.find('li[data-code="'+current+'"]').data(b));
+        }
+
         if (current === undefined || current === ''){
-            if (options.flag){
-                flag.html('<span class="flag-us"></span>');
-                input.val('United States');
-            }
+            $.ajax({
+                url: "https://freegeoip.net/json/",
+                method: "GET",
+                dataType: "json",
+                error: function(){
+                    if (options.flag){
+                        flag.html('<span class="flag-us"></span>');
+                        input.val('United States');
+                    }
+                },
+                success: function (e) {
+                    current = e.country_code.toLowerCase();
+                    block.addClass('changed');
+                    that.addClass('cntr_check');
+
+                    if (options.flag){
+                        flag.html('<span class="flag-'+current+'"></span>');
+                        geo(that,'phone');
+                        geo(input,'name');
+                    } else if (options.search){
+                        geo(that,'name');
+                        geo(phone,'phone');
+                    } else if (options.select){
+                        that.text(ul.find('li[data-code="'+current+'"]').data('name'));
+                        geo(input,'name');
+                        geo(phone,'phone');
+                    } else {
+                        geo(that,'phone');
+                        geo(input,'name');
+                    }
+                }
+            })
         } else {
             block.addClass('changed');
             that.addClass('cntr_check');
+
             if (options.flag){
                 flag.html('<span class="flag-'+current+'"></span>');
-                that.val(ul.find('li[data-code="'+current+'"]').data('phone'));
-                input.val(ul.find('li[data-code="'+current+'"]').data('name'));
+                geo(that,'phone');
+                geo(input,'name');
             } else if (options.search){
-                that.val(ul.find('li[data-code="'+current+'"]').data('name'));
-                phone.val(ul.find('li[data-code="'+current+'"]').data('phone'));
+                geo(that,'name');
+                geo(phone,'phone');
             } else if (options.select){
                 that.text(ul.find('li[data-code="'+current+'"]').data('name'));
-                input.val(ul.find('li[data-code="'+current+'"]').data('name'));
-                phone.val(ul.find('li[data-code="'+current+'"]').data('phone'));
-            } else if (options.flags) {
-                that.val(ul.find('li[data-code="'+current+'"]').data('phone'));
-                input.val(ul.find('li[data-code="'+current+'"]').data('name'));
+                geo(input,'name');
+                geo(phone,'phone');
             } else {
-                that.val(ul.find('li[data-code="'+current+'"]').data('phone'));
-                input.val(ul.find('li[data-code="'+current+'"]').data('name'));
+                geo(that,'phone');
+                geo(input,'name');
             }
-        }
-
-        if (!options.search){
-            body.on('keypress',function(e){
-                if (block.hasClass('active') && !(e.key.search(/^[^\d+=()\[\]{}\\/^$|?*!@#%:;&,_.'"\s]+$/) === -1)){
-                    var scroll_el = block.find('.cntr-ls').find('li[data-search^='+String.fromCharCode(e.keyCode).toLowerCase()+']');
-                    if (scroll_el.length != 0) {
-                        ul.animate({ scrollTop: scroll_el[0].offsetTop - 20 }, 500);
-                    }
-                }
-            });
         }
 
         if (body.height()-that.offset().top < 360 && body.height()-that.offset().top > 281){
@@ -436,4 +472,5 @@
             ul.parent().addClass('cntr-top');
         }
     };
+
 })(jQuery);

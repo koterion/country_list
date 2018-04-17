@@ -11,13 +11,11 @@
   display: block;
 }
 .cntr-bl.active .cntr-arrow {
-  -webkit-transform: rotateX(180deg);
-          transform: rotateX(180deg);
+  transform: rotateX(180deg);
   top: calc(40%);
 }
 .cntr-bl.active .cntr-sl:after {
-  -webkit-transform: rotateX(180deg);
-          transform: rotateX(180deg);
+  transform: rotateX(180deg);
   top: calc(46%);
 }
 .cntr-bl .cntr-in-sl {
@@ -52,12 +50,10 @@
   cursor: pointer;
   margin-bottom: 5px;
   transition: all .3s;
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
 }
 .cntr-ls li span {
   margin-right: 10px;
@@ -77,12 +73,10 @@
   height: 100%;
   width: 50px;
   cursor: pointer;
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
 }
 .cntr-sl:after {
   content: '';
@@ -106,8 +100,7 @@
 }
 .cntr-top {
   top: 0;
-  -webkit-transform: translateY(-100%);
-          transform: translateY(-100%);
+  transform: translateY(-100%);
 }
 .cntr-arrow {
   display: block;
@@ -390,8 +383,7 @@
   line-height: 0;
   margin: 0;
   padding: 0;
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+  transform: scale(1.1);
 }
 .flag-abkhazia {
   background-position: 0 0;
