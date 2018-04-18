@@ -5,7 +5,10 @@
             select:false,
             flag: false,
             flags: false,
-            search:false
+            search:false,
+            list:false,
+            delete:false,
+            countryAll:[]
         }, options);
 
         var allCountries = [
@@ -263,7 +266,7 @@
             body.on('keypress',function(e){
                 if (block.hasClass('active') && !(e.key.search(/^[^\d+=()\[\]{}\\/^$|?*!@#%:;&,_.'"\s]+$/) === -1)){
                     var scroll_el = block.find('.cntr-ls').find('li[data-search^='+String.fromCharCode(e.keyCode).toLowerCase()+']');
-                    if (scroll_el.length != 0) {
+                    if (scroll_el.length !== 0) {
                         ul.animate({ scrollTop: scroll_el[0].offsetTop - 20 }, 500);
                     }
                 }
@@ -278,23 +281,55 @@
             }
         }
 
-        if (options.flags){
-            for (i=0; i < allCountries.length; i++){
-                country = allCountries[i];
-                countryName = country[0];
-                countryCode = country[1];
-                phoneCode = country[2];
-                ul.append('<li data-search="'+countryName.toLowerCase()+'" data-name="'+countryName+'" data-code="'+countryCode+'" data-phone="'+phoneCode+'"><span class="cntr-fl flag-'+countryCode+'"></span>'+countryName+'</li>');
-            }
-        } else {
-            for (i=0; i < allCountries.length; i++){
-                country = allCountries[i];
-                countryName = country[0];
-                countryCode = country[1];
-                phoneCode = country[2];
+        function addList(country,flag){
+            countryParam = country;
+            countryName = countryParam[0];
+            countryCode = countryParam[1];
+            phoneCode = countryParam[2];
+
+            if(flag){
+                ul.append('<li data-search="' + countryName.toLowerCase() + '" data-name="' + countryName + '" data-code="' + countryCode + '" data-phone="' + phoneCode + '"><span class="cntr-fl flag-' + countryCode + '"></span>' + countryName + '</li>');
+            } else {
                 ul.append('<li data-search="'+countryName.toLowerCase()+'" data-name="'+countryName+'" data-code="'+countryCode+'" data-phone="'+phoneCode+'">'+countryName+'</li>');
             }
         }
+
+        function createList(flag) {
+            if (options.list){
+                $.each(options.countryAll,function(key,iso){
+                    $.each(allCountries,function(key,value){
+                        if(value.indexOf(iso) !== -1) {
+                            addList($(this),flag);
+                        }
+                    });
+                });
+            } else if (options.delete) {
+                $.each(allCountries,function(key,iso){
+                    var deleteCountry;
+                    function checkForDelete(country){
+                        $.each(options.countryAll,function(key,value){
+                            if(country.indexOf(value) !== -1) {
+                                deleteCountry = true;
+                                return false;
+                            }
+                        });
+                    }
+
+                    checkForDelete(iso);
+
+                    if (!deleteCountry){
+                        addList(iso,flag);
+                    }
+                });
+            } else {
+                for (i=0; i < allCountries.length; i++){
+                    country = allCountries[i];
+                    addList(allCountries[i],flag);
+                }
+            }
+        }
+
+        createList(options.flags);
 
         var li = ul.find('li');
 
@@ -336,7 +371,7 @@
 
         if (options.search){
             that.on('keyup', function(){
-                block.removeClass('changed');
+                block.removeClass('changed').addClass('active');
                 $this = $(this);
                 $div = $this.nextAll('.cntr-ls');
                 $li = $div.find('li');
@@ -356,7 +391,7 @@
                             $(this).click();
                             return false;
                         }
-                    })
+                    });
                     return false;
                 }
             });
