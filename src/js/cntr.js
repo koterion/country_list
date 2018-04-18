@@ -370,11 +370,12 @@
         }
 
         if (options.search){
-            that.on('keyup', function(){
+            that.on('keyup', function(e){
                 block.removeClass('changed').addClass('active');
                 $this = $(this);
                 $div  = $this.nextAll('.cntr-ls');
                 $li   = $div.find('li');
+                $key  = e.originalEvent.keyCode;
 
                 if($this.val().length > 0){
                     $li.hide();
@@ -382,21 +383,24 @@
                 } else {
                     $li.show();
                 }
-            });
 
-            that.on('keypress',function(e){
-                var key = e.charCode;
-                if(key === 13){
+                if($key === 13){
                     $.each(li,function(){
                         if($(this).css('display') !== 'none'){
                             $(this).click();
-                            block.addClass('changed').removeClass('active');
                             return false;
                         }
                     });
                     return false;
                 }
+            })
+            .on('keypress',function(e){
+                $key  = e.charCode;
+                if($key === 13){
+                    return false;
+                }
             });
+
 
             li.on('click',function(){
                 block.removeClass('active').addClass('changed');
