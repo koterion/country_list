@@ -1,0 +1,912 @@
+.cntr
+  &-bl
+    position: relative
+
+    &.active
+      .cntr-ls
+        display: block
+
+      .cntr-arrow
+        transform: rotateX(180deg)
+        top: calc(50% - 5px*2)
+
+      .cntr-sl:after
+        transform: rotateX(180deg)
+        top: calc(50% - 2px*2)
+
+    .cntr-in-sl
+      padding-left: 50px
+
+  &-ls
+    width: 100%
+    position: absolute
+    top: 100%
+    left: 0
+    background-color: #304163
+    padding: 20px 20px 20px 35px
+    max-height: 100vh
+    z-index: 2
+    display: none
+
+    ul
+      max-height: 280px
+      overflow: auto
+
+      &::-webkit-scrollbar
+        width: 2px
+        background: #2b3a5a
+
+
+      &::-webkit-scrollbar-thumb
+        background-color: #2bc39c
+
+    li
+      font-size: 14px
+      color: #9fabc3
+      letter-spacing: .65px
+      cursor: pointer
+      margin-bottom: 5px
+      transition: all .3s
+      display: flex
+      align-items: center
+
+      span
+        margin-right: 10px
+
+      @media(max-width: 768px)
+        margin-bottom: 15px
+
+      &:hover
+        color: #46ebc1
+
+  &-sl
+    position: absolute
+    left: 0
+    top: 0
+    height: 100%
+    width: 50px
+    cursor: pointer
+    display: flex
+    align-items: center
+
+    &:after
+      content: ''
+      position: absolute
+      border: 3px solid transparent
+      border-top: 3px solid #465e7c
+      top: calc(50% - 3px/2)
+      left: 35px
+      width: 0
+      height: 0
+      transition: all .4s
+
+    span
+      left: 10px
+
+  &-in
+    cursor: pointer
+
+  &-middle
+    ul
+      max-height: 220px
+
+
+
+  &-top
+    top: 0
+    transform: translateY(-100%)
+
+  &-arrow
+    display: block
+    position: absolute
+    border: 5px solid transparent
+    border-top: 5px solid #465e7c
+    top: calc(50% - 5px/2)
+    right: 10px
+    width: 0
+    height: 0
+    transition: all .4s
+    cursor: pointer
+
+.flag
+  &-abkhazia, &-ad, &-ae, &-af, &-ag, &-ai, &-al, &-am, &-an, &-ao, &-aq, &-ar, &-as, &-at, &-au, &-aw, &-ax, &-az, &-ba, &-bb, &-bd, &-be, &-bf, &-bg, &-bh, &-bi, &-bj, &-bl, &-bm, &-bn, &-bo, &-br, &-bs, &-bt, &-bv, &-bw, &-by, &-bz, &-ca, &-cc, &-cd, &-cf, &-cg, &-ch, &-ci, &-ck, &-cl, &-cm, &-cn, &-co, &-cr, &-cu, &-cv, &-cx, &-cy, &-cz, &-de, &-dj, &-dk, &-dm, &-do, &-dz, &-ec, &-ee, &-eg, &-eh, &-er, &-es-ce, &-es-ml, &-es, &-et, &-eu, &-fi, &-fj, &-fk, &-fm, &-fo, &-fr, &-ga, &-gb, &-gd, &-ge, &-gf, &-gg, &-gh, &-gi, &-gl, &-gm, &-gn, &-gp, &-gq, &-gr, &-gs, &-gt, &-gu, &-gw, &-gy, &-hk, &-hm, &-hn, &-hr, &-ht, &-hu, &-ic, &-id, &-ie, &-il, &-im, &-in, &-io, &-iq, &-ir, &-is, &-it, &-je, &-jm, &-jo, &-jp, &-ke, &-kg, &-kh, &-ki, &-km, &-kn, &-xk, &-kp, &-kr, &-kw, &-ky, &-kz, &-la, &-lb, &-lc, &-li, &-lk, &-lr, &-ls, &-lt, &-lu, &-lv, &-ly, &-ma, &-mc, &-md, &-me, &-mf, &-mg, &-mh, &-mk, &-ml, &-mm, &-mn, &-mo, &-mp, &-mq, &-mr, &-ms, &-mt, &-mu, &-mv, &-mw, &-mx, &-my, &-mz, &-na, &-nc, &-ne, &-nf, &-ng, &-ni, &-nkr, &-nl, &-no, &-np, &-nr, &-nu, &-nz, &-om, &-pa, &-pe, &-pf, &-pg, &-ph, &-pk, &-pl, &-pm, &-pn, &-pr, &-ps, &-pt, &-pw, &-py, &-qa, &-re, &-ro, &-rs, &-ru, &-rw, &-sa, &-sb, &-sc, &-sd, &-se, &-sg, &-sh, &-si, &-sj, &-sk, &-sl, &-sm, &-sn, &-so, &-south-ossetia, &-sr, &-ss, &-st, &-sv, &-sy, &-sz, &-tc, &-td, &-tf, &-tg, &-th, &-tj, &-tk, &-tl, &-tm, &-tn, &-to, &-tr, &-tt, &-tv, &-tw, &-tz, &-ua, &-ug, &-um, &-us, &-uy, &-uz, &-va, &-vc, &-ve, &-vg, &-vi, &-vn, &-vu, &-wf, &-ws, &-ye, &-yt, &-za, &-zm, &-zw, &-en, &-zh, &-el
+    background: url("/img/flags.png") no-repeat 0 9px
+    display: inline-block
+    vertical-align: baseline
+    position: relative
+    overflow: hidden
+    width: 16px
+    height: 9px
+    font-size: 0
+    line-height: 0
+    margin: 0
+    padding: 0
+    transform: scale(1.1)
+
+    $country: abkhazia
+
+    @if $country != false
+      @for $i from 1 through length($country)
+        .flag-#{nth($country, $i)}
+          background: url("/img/flags.png") no-repeat 0 9px
+          display: inline-block
+          vertical-align: baseline
+          position: relative
+          overflow: hidden
+          width: 16px
+          height: 9px
+          font-size: 0
+          line-height: 0
+          margin: 0
+          padding: 0
+          transform: scale(1.1)
+          background-position: 0 -9px*($i - 1)
+
+  &-abkhazia
+    background-position: 0 0
+
+  &-ad
+    background-position: 0 -9px
+
+  &-ae
+    background-position: 0 -18px
+
+  &-af
+    background-position: 0 -27px
+
+  &-ag
+    background-position: 0 -36px
+
+  &-ai
+    background-position: 0 -45px
+
+  &-al
+    background-position: 0 -54px
+
+  &-am
+    background-position: 0 -63px
+
+  &-an
+    background-position: 0 -72px
+
+  &-ao
+    background-position: 0 -81px
+
+  &-aq
+    background-position: 0 -90px
+
+  &-ar
+    background-position: 0 -99px
+
+  &-as
+    background-position: 0 -108px
+
+  &-at
+    background-position: 0 -117px
+
+  &-au
+    background-position: 0 -126px
+
+  &-aw
+    background-position: 0 -135px
+
+  &-ax
+    background-position: 0 -144px
+
+  &-az
+    background-position: 0 -153px
+
+  &-ba
+    background-position: 0 -162px
+
+  &-bb
+    background-position: 0 -171px
+
+  &-bd
+    background-position: 0 -180px
+
+  &-be
+    background-position: 0 -189px
+
+  &-bf
+    background-position: 0 -198px
+
+  &-bg
+    background-position: 0 -207px
+
+  &-bh
+    background-position: 0 -216px
+
+  &-bi
+    background-position: 0 -225px
+
+  &-bj
+    background-position: 0 -234px
+
+  &-bl
+    background-position: 0 -243px
+
+  &-bm
+    background-position: 0 -252px
+
+  &-bn
+    background-position: 0 -261px
+
+  &-bo
+    background-position: 0 -270px
+
+  &-br
+    background-position: 0 -279px
+
+  &-bs
+    background-position: 0 -288px
+
+  &-bt
+    background-position: 0 -297px
+
+  &-bv
+    background-position: 0 -306px
+
+  &-bw
+    background-position: 0 -315px
+
+  &-by
+    background-position: 0 -324px
+
+  &-bz
+    background-position: 0 -333px
+
+  &-ca
+    background-position: 0 -342px
+
+  &-cc
+    background-position: 0 -351px
+
+  &-cd
+    background-position: 0 -360px
+
+  &-cf
+    background-position: 0 -369px
+
+  &-cg
+    background-position: 0 -378px
+
+  &-ch
+    background-position: 0 -387px
+
+  &-ci
+    background-position: 0 -396px
+
+  &-ck
+    background-position: 0 -405px
+
+  &-cl
+    background-position: 0 -414px
+
+  &-cm
+    background-position: 0 -423px
+
+  &-cn,&-zh
+    background-position: 0 -432px
+
+  &-co
+    background-position: 0 -441px
+
+  &-cr
+    background-position: 0 -450px
+
+  &-cu
+    background-position: 0 -459px
+
+  &-cv
+    background-position: 0 -468px
+
+  &-cx
+    background-position: 0 -477px
+
+  &-cy
+    background-position: 0 -486px
+
+  &-cz
+    background-position: 0 -495px
+
+  &-de
+    background-position: 0 -504px
+
+  &-dj
+    background-position: 0 -513px
+
+  &-dk
+    background-position: 0 -522px
+
+  &-dm
+    background-position: 0 -531px
+
+  &-do
+    background-position: 0 -540px
+
+  &-dz
+    background-position: 0 -549px
+
+  &-ec
+    background-position: 0 -558px
+
+  &-ee
+    background-position: 0 -567px
+
+  &-eg
+    background-position: 0 -576px
+
+  &-eh
+    background-position: 0 -585px
+
+  &-er
+    background-position: 0 -594px
+
+  &-es-ce
+    background-position: 0 -603px
+
+  &-es-ml
+    background-position: 0 -612px
+
+  &-es
+    background-position: 0 -621px
+
+  &-et
+    background-position: 0 -630px
+
+  &-eu
+    background-position: 0 -639px
+
+  &-fi
+    background-position: 0 -648px
+
+  &-fj
+    background-position: 0 -657px
+
+  &-fk
+    background-position: 0 -666px
+
+  &-fm
+    background-position: 0 -675px
+
+  &-fo
+    background-position: 0 -684px
+
+  &-fr
+    background-position: 0 -693px
+
+  &-ga
+    background-position: 0 -702px
+
+  &-gb
+    background-position: 0 -711px
+
+  &-gd
+    background-position: 0 -720px
+
+  &-ge
+    background-position: 0 -729px
+
+  &-gf
+    background-position: 0 -738px
+
+  &-gg
+    background-position: 0 -747px
+
+  &-gh
+    background-position: 0 -756px
+
+  &-gi
+    background-position: 0 -765px
+
+  &-gl
+    background-position: 0 -774px
+
+  &-gm
+    background-position: 0 -783px
+
+  &-gn
+    background-position: 0 -792px
+
+  &-gp
+    background-position: 0 -801px
+
+  &-gq
+    background-position: 0 -810px
+
+  &-gr,&-el
+    background-position: 0 -819px
+
+  &-gs
+    background-position: 0 -828px
+
+  &-gt
+    background-position: 0 -837px
+
+  &-gu
+    background-position: 0 -846px
+
+  &-gw
+    background-position: 0 -855px
+
+  &-gy
+    background-position: 0 -864px
+
+  &-hk
+    background-position: 0 -873px
+
+  &-hm
+    background-position: 0 -882px
+
+  &-hn
+    background-position: 0 -891px
+
+  &-hr
+    background-position: 0 -900px
+
+  &-ht
+    background-position: 0 -909px
+
+  &-hu
+    background-position: 0 -918px
+
+  &-ic
+    background-position: 0 -927px
+
+  &-id
+    background-position: 0 -936px
+
+  &-ie
+    background-position: 0 -945px
+
+  &-il
+    background-position: 0 -954px
+
+  &-im
+    background-position: 0 -963px
+
+  &-in
+    background-position: 0 -972px
+
+  &-io
+    background-position: 0 -981px
+
+  &-iq
+    background-position: 0 -990px
+
+  &-ir
+    background-position: 0 -999px
+
+  &-is
+    background-position: 0 -1008px
+
+  &-it
+    background-position: 0 -1017px
+
+  &-je
+    background-position: 0 -1026px
+
+  &-jm
+    background-position: 0 -1035px
+
+  &-jo
+    background-position: 0 -1044px
+
+  &-jp
+    background-position: 0 -1053px
+
+  &-ke
+    background-position: 0 -1062px
+
+  &-kg
+    background-position: 0 -1071px
+
+  &-kh
+    background-position: 0 -1080px
+
+  &-ki
+    background-position: 0 -1089px
+
+  &-km
+    background-position: 0 -1098px
+
+  &-kn
+    background-position: 0 -1107px
+
+  &-xk
+    background-position: 0 -1116px
+
+  &-kp
+    background-position: 0 -1125px
+
+  &-kr
+    background-position: 0 -1134px
+
+  &-kw
+    background-position: 0 -1143px
+
+  &-ky
+    background-position: 0 -1152px
+
+  &-kz
+    background-position: 0 -1161px
+
+  &-la
+    background-position: 0 -1170px
+
+  &-lb
+    background-position: 0 -1179px
+
+  &-lc
+    background-position: 0 -1188px
+
+  &-li
+    background-position: 0 -1197px
+
+  &-lk
+    background-position: 0 -1206px
+
+  &-lr
+    background-position: 0 -1215px
+
+  &-ls
+    background-position: 0 -1224px
+
+  &-lt
+    background-position: 0 -1233px
+
+  &-lu
+    background-position: 0 -1242px
+
+  &-lv
+    background-position: 0 -1251px
+
+  &-ly
+    background-position: 0 -1260px
+
+  &-ma
+    background-position: 0 -1269px
+
+  &-mc
+    background-position: 0 -1278px
+
+  &-md
+    background-position: 0 -1287px
+
+  &-me
+    background-position: 0 -1296px
+
+  &-mf
+    background-position: 0 -1305px
+
+  &-mg
+    background-position: 0 -1314px
+
+  &-mh
+    background-position: 0 -1323px
+
+  &-mk
+    background-position: 0 -1332px
+
+  &-ml
+    background-position: 0 -1341px
+
+  &-mm
+    background-position: 0 -1350px
+
+  &-mn
+    background-position: 0 -1359px
+
+  &-mo
+    background-position: 0 -1368px
+
+  &-mp
+    background-position: 0 -1377px
+
+  &-mq
+    background-position: 0 -1386px
+
+  &-mr
+    background-position: 0 -1395px
+
+  &-ms
+    background-position: 0 -1404px
+
+  &-mt
+    background-position: 0 -1413px
+
+  &-mu
+    background-position: 0 -1422px
+
+  &-mv
+    background-position: 0 -1431px
+
+  &-mw
+    background-position: 0 -1440px
+
+  &-mx
+    background-position: 0 -1449px
+
+  &-my
+    background-position: 0 -1458px
+
+  &-mz
+    background-position: 0 -1467px
+
+  &-na
+    background-position: 0 -1476px
+
+  &-nc
+    background-position: 0 -1485px
+
+  &-ne
+    background-position: 0 -1494px
+
+  &-nf
+    background-position: 0 -1503px
+
+  &-ng
+    background-position: 0 -1512px
+
+  &-ni
+    background-position: 0 -1521px
+
+  &-nkr
+    background-position: 0 -1530px
+
+  &-nl
+    background-position: 0 -1539px
+
+  &-no
+    background-position: 0 -1548px
+
+  &-np
+    background-position: 0 -1557px
+
+  &-nr
+    background-position: 0 -1566px
+
+  &-nu
+    background-position: 0 -1575px
+
+  &-nz
+    background-position: 0 -1584px
+
+  &-om
+    background-position: 0 -1593px
+
+  &-pa
+    background-position: 0 -1602px
+
+  &-pe
+    background-position: 0 -1611px
+
+  &-pf
+    background-position: 0 -1620px
+
+  &-pg
+    background-position: 0 -1629px
+
+  &-ph
+    background-position: 0 -1638px
+
+  &-pk
+    background-position: 0 -1647px
+
+  &-pl
+    background-position: 0 -1656px
+
+  &-pm
+    background-position: 0 -1665px
+
+  &-pn
+    background-position: 0 -1674px
+
+  &-pr
+    background-position: 0 -1683px
+
+  &-ps
+    background-position: 0 -1692px
+
+  &-pt
+    background-position: 0 -1701px
+
+  &-pw
+    background-position: 0 -1710px
+
+  &-py
+    background-position: 0 -1719px
+
+  &-qa
+    background-position: 0 -1728px
+
+  &-re
+    background-position: 0 -1737px
+
+  &-ro
+    background-position: 0 -1746px
+
+  &-rs
+    background-position: 0 -1755px
+
+  &-ru
+    background-position: 0 -1764px
+
+  &-rw
+    background-position: 0 -1773px
+
+  &-sa
+    background-position: 0 -1782px
+
+  &-sb
+    background-position: 0 -1791px
+
+  &-sc
+    background-position: 0 -1800px
+
+  &-sd
+    background-position: 0 -1809px
+
+  &-se
+    background-position: 0 -1818px
+
+  &-sg
+    background-position: 0 -1827px
+
+  &-sh
+    background-position: 0 -1836px
+
+  &-si
+    background-position: 0 -1845px
+
+  &-sj
+    background-position: 0 -1854px
+
+  &-sk
+    background-position: 0 -1863px
+
+  &-sl
+    background-position: 0 -1872px
+
+  &-sm
+    background-position: 0 -1881px
+
+  &-sn
+    background-position: 0 -1890px
+
+  &-so
+    background-position: 0 -1899px
+
+  &-south-ossetia
+    background-position: 0 -1908px
+
+  &-sr
+    background-position: 0 -1917px
+
+  &-ss
+    background-position: 0 -1926px
+
+  &-st
+    background-position: 0 -1935px
+
+  &-sv
+    background-position: 0 -1944px
+
+  &-sy
+    background-position: 0 -1953px
+
+  &-sz
+    background-position: 0 -1962px
+
+  &-tc
+    background-position: 0 -1971px
+
+  &-td
+    background-position: 0 -1980px
+
+  &-tf
+    background-position: 0 -1989px
+
+  &-tg
+    background-position: 0 -1998px
+
+  &-th
+    background-position: 0 -2007px
+
+  &-tj
+    background-position: 0 -2016px
+
+  &-tk
+    background-position: 0 -2025px
+
+  &-tl
+    background-position: 0 -2034px
+
+  &-tm
+    background-position: 0 -2043px
+
+  &-tn
+    background-position: 0 -2052px
+
+  &-to
+    background-position: 0 -2061px
+
+  &-tr
+    background-position: 0 -2070px
+
+  &-tt
+    background-position: 0 -2079px
+
+  &-tv
+    background-position: 0 -2088px
+
+  &-tw
+    background-position: 0 -2097px
+
+  &-tz
+    background-position: 0 -2106px
+
+  &-ua
+    background-position: 0 -2115px
+
+  &-ug
+    background-position: 0 -2124px
+
+  &-um
+    background-position: 0 -2133px
+
+  &-us
+    background-position: 0 -2142px
+
+  &-uy
+    background-position: 0 -2151px
+
+  &-uz
+    background-position: 0 -2160px
+
+  &-va
+    background-position: 0 -2169px
+
+  &-vc
+    background-position: 0 -2178px
+
+  &-ve
+    background-position: 0 -2187px
+
+  &-vg
+    background-position: 0 -2196px
+
+  &-vi
+    background-position: 0 -2205px
+
+  &-vn
+    background-position: 0 -2214px
+
+  &-vu
+    background-position: 0 -2223px
+
+  &-wf
+    background-position: 0 -2232px
+
+  &-ws
+    background-position: 0 -2241px
+
+  &-ye
+    background-position: 0 -2250px
+
+  &-yt
+    background-position: 0 -2259px
+
+  &-za
+    background-position: 0 -2268px
+
+  &-zm
+    background-position: 0 -2277px
+
+  &-zw
+    background-position: 0 -2286px
+
+  &-en
+    background-position: 0 -711px
+

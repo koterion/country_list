@@ -394,12 +394,12 @@
                     return false;
                 }
             })
-            .on('keypress',function(e){
-                $key  = e.charCode;
-                if($key === 13){
-                    return false;
-                }
-            });
+                .on('keypress',function(e){
+                    $key  = e.charCode;
+                    if($key === 13){
+                        return false;
+                    }
+                });
 
 
             li.on('click',function(){
@@ -451,6 +451,10 @@
 
         function geo (a,b){
             a.val(ul.find('li[data-code="'+current+'"]').data(b));
+
+            if (a.val() !== undefined && a.val() !== '' && a.val().length > 1){
+                a.addClass('valid');
+            }
         }
 
         function geoChech(){
@@ -472,23 +476,31 @@
         }
 
         if (current === undefined || current === ''){
-            $.ajax({
-                url: "https://freegeoip.net/json/",
-                method: "GET",
-                dataType: "json",
-                error: function(){
-                    if (options.flag){
-                        flag.html('<span class="flag-us"></span>');
-                        input.val('United States');
+            if (window.sessionStorage && sessionStorage.getItem('iso')){
+                current = sessionStorage.getItem('iso');
+                block.addClass('changed');
+                that.addClass('cntr_check');
+                geoChech();
+            } else {
+                $.ajax({
+                    url: "https://api.sypexgeo.net/",
+                    method: "GET",
+                    dataType: "json",
+                    error: function(){
+                        if (options.flag){
+                            flag.html('<span class="flag-us"></span>');
+                            input.val('United States');
+                        }
+                    },
+                    success: function (e) {
+                        current = e.country.iso.toLowerCase();
+                        sessionStorage.setItem('iso',e.country.iso.toLowerCase());
+                        block.addClass('changed');
+                        that.addClass('cntr_check');
+                        geoChech();
                     }
-                },
-                success: function (e) {
-                    current = e.country_code.toLowerCase();
-                    block.addClass('changed');
-                    that.addClass('cntr_check');
-                    geoChech();
-                }
-            })
+                });
+            }
         } else {
             block.addClass('changed');
             that.addClass('cntr_check');

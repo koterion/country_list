@@ -1,0 +1,89 @@
+/*==========================================================================================*/
+
+=mx-burger ($width: $burger-width,$height: $burger-height,$color: $burger-color,$color-hover: $burger-hover,$color-active: $burger-active,$border:$burger-border)
+  position: relative
+  width: $width
+  height: $height
+  color: $color
+  cursor: pointer
+  display: block
+
+  &:hover,
+  &:active
+    color: $color-hover
+
+  &:before,
+  &:after
+    content: ''
+
+  &:before,
+  &:after,
+  div
+    position: absolute
+    left: 50%
+    width: 100%
+    border-top: $border solid
+
+  &:before
+    top: 0
+    transform: translateX($s50)
+    transition: ease .2s
+
+  &:after
+    top: 50%
+    transform: translate($s50, $s50)
+    transition: ease .2s
+
+  div
+    bottom: 0
+    transform: translateX($s50)
+    transition: ease .2s
+
+  &.js-active
+    color: $color-active
+
+    &:hover,
+    &:active
+      color: $color-active
+
+    &:before
+      top: 50%
+      transform: translateX($s50) rotateZ(45deg)
+      transition: ease .3s
+
+    &:after
+      transform: translateX($s50) rotateZ(-45deg)
+      transition: ease .3s
+
+    div
+      transform: translate($s50, 10px)
+      opacity: 0
+      transition: ease .3s
+
+    &:before,
+    &:after,
+    div
+      border-top: $border solid
+
+=mx-box($width: $sitewidth,$width-small: $siteInnerwidth,$padding: 3rem)
+  max-width: $width + 2*$padding
+  padding: 0 $padding
+  margin: 0 auto
+  width: 100%
+
+  @media (max-width: $pad)
+    padding-left: $padding - 1rem
+    padding-right: $padding - 1rem
+
+  &-small
+    max-width: $width-small
+    padding: 0 $padding
+    margin: 0 auto
+    width: 100%
+
+    @media (max-width: $pad)
+      padding-left: $padding - 1rem
+      padding-right: $padding - 1rem
+
+=mx-transition($duration: .3s)
+  transition: ease $duration
