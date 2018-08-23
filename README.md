@@ -77,4 +77,4 @@ Custom select with input for search
 
 If you want automatic select country, add `data-current` with current country in ISO format
 
-Automatically creates `<input type="hidden" name="country">` and paste current country (not for `select option`).
+Automatically creates `<input type="hidden" name="country">` and paste current country.
