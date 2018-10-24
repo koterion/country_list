@@ -1,1 +1,0 @@
-!function(e){e(".phone").cntr(),e(".flags").cntr({flagInSelect:!0}),e(".flag").cntr({flagInInput:!0}),e(".select").cntr({select:!0}),e(".search").cntr({search:!0}),e(".choose").cntr({select:!0,list:!0,countryAll:["ar","fr"]}),e(".delete").cntr({select:!0,delete:!0,countryAll:["ar","ua"]})}(jQuery);
