@@ -1,4 +1,5 @@
-# cntr
+# Country list
+plugin for create list of country
 
 ## Getting Started
 
