@@ -1,5 +1,5 @@
 {
-  "name": "country-list",
+  "name": "@koterion/country_list",
   "version": "1.0.0",
   "description": "Plugin for creale list of country",
   "scripts": {
@@ -20,37 +20,40 @@
       "es6": true
     }
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/koterion/cntr"
+    "url": "https://github.com/koterion/country_list"
   },
   "author": "koterion",
   "license": "MIT",
   "homepage": "",
   "dependencies": {
-    "autoprefixer": "^9.1.5",
-    "popper.js": "^1.14.4",
-    "webpack-spritesmith": "^0.5.3"
+    "autoprefixer": "^9.3.1",
+    "popper.js": "^1.14.5",
+    "webpack-spritesmith": "^0.5.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.0",
+    "@babel/core": "^7.1.6",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-env": "^7.1.6",
     "babel-loader": "^8.0.2",
     "browser-sync": "^2.24.7",
     "browser-sync-webpack-plugin": "^2.2.2",
-    "copy-webpack-plugin": "^4.5.2",
-    "css-loader": "^1.0.0",
+    "copy-webpack-plugin": "^4.6.0",
+    "css-loader": "^1.0.1",
     "cssnano": "^4.1.3",
     "del-cli": "^1.1.0",
     "html-cli": "^1.0.0",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.3",
-    "node-sass": "^4.9.3",
+    "node-sass": "^4.10.0",
     "postcss-loader": "^3.0.0",
     "raw-loader": "^0.5.1",
     "sass-loader": "^7.1.0",
-    "webpack": "^4.20.1",
+    "webpack": "^4.25.1",
     "webpack-cli": "^3.1.1",
     "webpack-dev-server": "^3.1.9"
   }
