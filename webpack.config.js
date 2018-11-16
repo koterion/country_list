@@ -24,7 +24,7 @@ const htmlPlugins = generateHtmlPlugins('./src/view')
 module.exports = {
   entry: {
     main: ['./src/js/main.js', './src/sass/main.sass'],
-    index: ['./src/js/cntr.js', './src/sass/cntr.sass']
+    countryList: ['./src/js/countryList.js', './src/sass/countryList.sass']
   },
   output: {
     filename: (chunkData) => {
