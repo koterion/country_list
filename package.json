@@ -11,6 +11,13 @@
     "beautify": "html dist/*.html --indent-size 2",
     "clear": "del-cli dist"
   },
+  "browserslist": [
+    "> 1%",
+    "last 4 versions",
+    "ie >= 10",
+    "Firefox ESR",
+    "Safari >= 10"
+  ],
   "eslintConfig": {
     "env": {
       "browser": true,
