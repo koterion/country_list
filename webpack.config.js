@@ -27,7 +27,9 @@ module.exports = {
     index: ['./src/js/cntr.js', './src/sass/cntr.sass']
   },
   output: {
-    filename: './js/[name].min.js'
+    filename: (chunkData) => {
+      return chunkData.chunk.name === 'main' ? 'js/[name].js' : '[name].js'
+    }
   },
   devtool: 'source-map',
   module: {
@@ -105,7 +107,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: './css/[name].min.css'
+      filename: './css/[name].css'
     }),
     new CopyWebpackPlugin([
       {
