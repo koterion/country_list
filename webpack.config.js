@@ -24,7 +24,7 @@ const htmlPlugins = generateHtmlPlugins('./src/view')
 module.exports = {
   entry: {
     main: ['./src/js/main.js', './src/sass/main.sass'],
-    cntr: ['./src/js/cntr.js', './src/sass/cntr.sass']
+    index: ['./src/js/cntr.js', './src/sass/cntr.sass']
   },
   output: {
     filename: './js/[name].min.js'
@@ -111,10 +111,6 @@ module.exports = {
       {
         from: 'src/img',
         to: 'img'
-      },
-      {
-        from: 'src/js/libs',
-        to: 'js'
       }
     ]),
     new BrowserSyncPlugin({
