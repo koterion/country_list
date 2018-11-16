@@ -30,6 +30,7 @@
   "files": [
     "dist"
   ],
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/koterion/country_list"
