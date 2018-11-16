@@ -5,13 +5,21 @@ import allCountries from './country.json'
 (function ($) {
   jQuery.fn.cntr = function (options) {
     options = $.extend({
-      select: false,
+      countryAll: [],
+      delete: false,
       flagInInput: false,
       flagInSelect: false,
-      search: false,
+      geo: {
+        url: 'https://api.sypexgeo.net/',
+        getIso: function (response) {
+          return response.country.iso
+        }
+      },
+      inputCountryName: 'country',
+      inputPhoneName: 'phone',
       list: false,
-      delete: false,
-      countryAll: []
+      search: false,
+      select: false
     }, options)
 
     const body = $('body')
@@ -35,8 +43,8 @@ import allCountries from './country.json'
     const countryList = wrapBlock.find('.cntr-ls').find('ul')
 
     if (!options.search) {
-      wrapBlock.append('<input type="hidden" name="country">')
-      countryInput = wrapBlock.find('input[name=country]')
+      wrapBlock.append('<input type="hidden" name="' + options.inputCountryName + '">')
+      countryInput = wrapBlock.find('input[name="' + options.inputCountryName + '"]')
 
       body.on('keydown', function (event) {
         if (wrapBlock.hasClass('active') && !(event.key.search(/^[^\d+=()[\]{}\\/^$|?*!@#%:;&,_.'"\s]+$/) === -1)) {
@@ -85,7 +93,7 @@ import allCountries from './country.json'
     })
 
     if (options.search || options.select) {
-      phoneInput = $this.closest('form').find('input[type="tel"]')
+      phoneInput = $this.closest('form').find('input[name="' + options.inputPhoneName + '"]')
       wrapBlock.append('<span class="cntr-arrow"></span>')
       let dropDownArrow = wrapBlock.find('.cntr-arrow')
 
@@ -114,11 +122,13 @@ import allCountries from './country.json'
           })
         }
       })
+
       $this.on('keypress', function (e) {
         if (e.charCode === 13) {
           return false
         }
       })
+
       countryListItems.on('click', function () {
         wrapBlock.removeClass('active')
           .addClass('changed')
@@ -138,7 +148,7 @@ import allCountries from './country.json'
         wrapBlock.removeClass('active')
           .addClass('changed')
         countryInput.val($(this).data('name'))
-        countryFlagsBlock.html('<span class="flag-' + $(this).data('code') + '"></span>')
+        countryFlagsBlock.html('<span class="cntr-flag cntr-flag-' + $(this).data('code') + '"></span>')
         $this.addClass('cntr_check')
           .val($(this).data('phone'))
           .focus()
@@ -149,7 +159,7 @@ import allCountries from './country.json'
           let countryFound = wrapBlock.find('.cntr-ls').find('li[data-phone|=' + $this.val() + ']')
 
           if (countryFound.data('code') !== undefined) {
-            countryFlagsBlock.html('<span class="flag-' + countryFound.data('code') + '"></span>')
+            countryFlagsBlock.html('<span class="cntr-flag cntr-flag-' + countryFound.data('code') + '"></span>')
             countryInput.val(countryFound.data('name'))
           }
         }
@@ -176,18 +186,19 @@ import allCountries from './country.json'
         checkGeo()
       } else {
         $.ajax({
-          url: 'https://api.sypexgeo.net/',
+          url: options.geo.url,
           method: 'GET',
           dataType: 'json',
           error: function () {
             if (options.flagInInput) {
-              countryFlagsBlock.html('<span class="flag-us"></span>')
+              countryFlagsBlock.html('<span class="cntr-flag cntr-flag-us"></span>')
               countryInput.val('United States')
             }
           },
           success: function (response) {
-            currentCountry = response.country.iso.toLowerCase()
-            sessionStorage.setItem('iso', response.country.iso.toLowerCase())
+            let iso = options.geo.getIso(response)
+            currentCountry = iso.toLowerCase()
+            sessionStorage.setItem('iso', iso.toLowerCase())
             wrapBlock.addClass('changed')
             $this.addClass('cntr_check')
             checkGeo()
@@ -200,9 +211,9 @@ import allCountries from './country.json'
       checkGeo()
     }
 
-    if (body.scrollHeight - $this.offset().top < 360 && body.scrollHeight - $this.offset().top > 281) {
+    if (body.prop('scrollHeight') - $this.offset().top < 360 && body.prop('scrollHeight') - $this.offset().top > 281) {
       countryList.parent().addClass('cntr-middle')
-    } else if (body.scrollHeight - $this.offset().top < 280) {
+    } else if (body.prop('scrollHeight') - $this.offset().top < 280) {
       countryList.parent().addClass('cntr-top')
     }
 
@@ -219,7 +230,7 @@ import allCountries from './country.json'
 
     function checkGeo () {
       if (options.flagInInput) {
-        countryFlagsBlock.html('<span class="flag-' + currentCountry + '"></span>')
+        countryFlagsBlock.html('<span class="cntr-flag cntr-flag-' + currentCountry + '"></span>')
         changeValue($this, 'phone')
         changeValue(countryInput, 'name')
       } else if (options.search) {
@@ -273,7 +284,7 @@ import allCountries from './country.json'
       let phoneCode = country['country_code']
 
       if (flag) {
-        countryList.append('<li data-search="' + countryName.toLowerCase() + '" data-name="' + countryName + '" data-code="' + countryCode + '" data-phone="' + phoneCode + '"><span class="cntr-fl flag-' + countryCode + '"></span>' + countryName + '</li>')
+        countryList.append('<li data-search="' + countryName.toLowerCase() + '" data-name="' + countryName + '" data-code="' + countryCode + '" data-phone="' + phoneCode + '"><span class="cntr-flag cntr-flag-' + countryCode + '"></span>' + countryName + '</li>')
       } else {
         countryList.append('<li data-search="' + countryName.toLowerCase() + '" data-name="' + countryName + '" data-code="' + countryCode + '" data-phone="' + phoneCode + '">' + countryName + '</li>')
       }
