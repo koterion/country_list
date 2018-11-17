@@ -40,8 +40,7 @@
   "homepage": "",
   "dependencies": {
     "autoprefixer": "^9.3.1",
-    "popper.js": "^1.14.5",
-    "webpack-spritesmith": "^0.5.4"
+    "popper.js": "^1.14.5"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
