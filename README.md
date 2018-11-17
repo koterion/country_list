@@ -1,81 +1,52 @@
 # Country list
 plugin for create list of country
 
-## Getting Started
+## install
 
-1. Download the [latest release](https://github.com/koterion/cntr/releases/latest)
-
-2. Include the stylesheet
-  ```html
-    <link rel="stylesheet" href="path/to/cntr.min.css">
-  ```
-
-4. Add the plugin script and initialise it on your input element
-
-```html
-    <input type="tel" class="phone">
-    
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="path/to/cntr.min.js"></script>
-    <script>
-    $(".phone").cntr();
-    </script>
-  ```
-  ## Demo and Examples
-  
-  [Cntr Plugin Demo](https://koterion.github.io/cntr/)
-
-  ## Options
-  
-**select** 
-Type: `Boolean` Default: `false` 
-  
-Custom select
-```html
-    <div class="phone"></div>
-    
-    <script>
-      $(".phone").cntr({select:true});
-    </script>
-```
-    
-  **flag** 
-  Type: `Boolean` Default: `false` 
-  
-Creates block with current flag on the left of input.  
-  
-```html
-    <input type="tel" class="phone">
-    
-    <script>
-      $(".phone").cntr({flag:true});
-    </script>
+```shell
+npm install @koterion/country_list
 ```
 
-  **flags** 
-  Type: `Boolean` Default: `false` 
-  
-For all country add flag in list
-```html
-    <input type="tel" class="phone">
-    
-    <script>
-      $(".phone").cntr({flags:true});
-    </script>
+## use
+
+Download the [latest release](https://github.com/koterion/country_list/releases/latest), or better yet install it with [npm](https://www.npmjs.com/package/@koterion/country_list)
+
+#### options
+
+option | type | default | desc |
+:--- | :---: | :---: | :--- |
+[countryAll](#countryall) | array | `[]` | List of country you wanna use |
+[delete](#delete) | boolean | `false` | If `true` delete country using `countryAll` (don't use with option list)
+flagInInput | boolean | `false` | If `true` add flags to current selector
+flagInSelect | boolean | `false` | If `true`  add flags to dropdown
+[geo](#geo) | object | | Use for checked country by ip |
+inputCountryName | string | `country` | Name for `input` with country name (auto create `type=hidden`)
+inputPhoneName | string | `phone` | Name for `input` with phone number (auto create)
+list | boolean | `false` | If `true` create list of country using `countryAll` (don't use with option delete)
+search | boolean | `false` | If `true` create input with name from `inputCountryName`, live search in country list
+select | boolean | `false` | If `true` create list like select
+                 
+### countryAll
+
+Use with `delete` or `list`
+
+### delete
+
+Don't use with `list`
+
+### geo
+For define country by ip we use service [Sypexgeo](https://api.sypexgeo.net/)
+
+You can rewrite method, it option `geo` by default it's object with this parameters: 
+```js
+  url: 'https://api.sypexgeo.net/',
+  getIso: function (response) {
+    return response.country.iso
+  }
 ```
+`url` - api for service, `getIso` - return country iso
 
-  **search** 
-  Type: `Boolean` Default: `false` 
-  
-Custom select with input for search
+Also you can use data attribute `data-current` with current country in ISO format. Example:
 ```html
-    <input type="text" class="phone">
-    
-    <script>
-      $(".phone").cntr({search:true});
-    </script>
+<div class="select" data-current="us"></div>
 ```
-
-If you want automatic select country, add `data-current` with current country in ISO format
-
-Automatically creates `<input type="hidden" name="country">` and paste current country.
