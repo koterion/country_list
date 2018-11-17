@@ -24,10 +24,12 @@ const htmlPlugins = generateHtmlPlugins('./src/view')
 module.exports = {
   entry: {
     main: ['./src/js/main.js', './src/sass/main.sass'],
-    cntr: ['./src/js/cntr.js', './src/sass/cntr.sass']
+    countryList: ['./src/js/countryList.js', './src/sass/countryList.sass']
   },
   output: {
-    filename: './js/[name].min.js'
+    filename: (chunkData) => {
+      return chunkData.chunk.name === 'main' ? 'js/[name].js' : '[name].js'
+    }
   },
   devtool: 'source-map',
   module: {
@@ -105,16 +107,12 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: './css/[name].min.css'
+      filename: './css/[name].css'
     }),
     new CopyWebpackPlugin([
       {
         from: 'src/img',
         to: 'img'
-      },
-      {
-        from: 'src/js/libs',
-        to: 'js'
       }
     ]),
     new BrowserSyncPlugin({

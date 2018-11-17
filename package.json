@@ -1,6 +1,6 @@
 {
   "name": "@koterion/country_list",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Plugin for creale list of country",
   "scripts": {
     "dev": "webpack --mode development",
@@ -11,6 +11,13 @@
     "beautify": "html dist/*.html --indent-size 2",
     "clear": "del-cli dist"
   },
+  "browserslist": [
+    "> 1%",
+    "last 4 versions",
+    "ie >= 10",
+    "Firefox ESR",
+    "Safari >= 10"
+  ],
   "eslintConfig": {
     "env": {
       "browser": true,
@@ -23,6 +30,7 @@
   "files": [
     "dist"
   ],
+  "main": "dist/countryList.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/koterion/country_list"
@@ -32,8 +40,7 @@
   "homepage": "",
   "dependencies": {
     "autoprefixer": "^9.3.1",
-    "popper.js": "^1.14.5",
-    "webpack-spritesmith": "^0.5.4"
+    "popper.js": "^1.14.5"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
