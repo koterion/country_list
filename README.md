@@ -9,9 +9,43 @@ npm install @koterion/country_list
 
 ## use
 
+Use with JQuery
+
 Download the [latest release](https://github.com/koterion/country_list/releases/latest), or better yet install it with [npm](https://www.npmjs.com/package/@koterion/country_list)
 
-#### options
+### CSS
+
+Include css
+```html
+<link rel="stylesheet" href="path/to/countryList.css">
+```
+or sass
+```sass
+@import "@koterion/country_list/src/sass/countryList.sass"
+```
+
+### HTML
+
+```html
+<div class="YourUniqueClass" data-yourData="dataInfo">Default</div>
+```
+Create unique class name
+
+### JS
+
+Include JS
+
+```html
+<script src="path/to/countryList.js"></script>
+```
+
+or
+
+```js
+import "@koterion/country_list"
+```
+
+### options
 
 option | type | default | desc |
 :--- | :---: | :---: | :--- |
@@ -25,14 +59,26 @@ inputPhoneName | string | `phone` | Name for `input` with phone number (auto cre
 list | boolean | `false` | If `true` create list of country using `countryAll` (don't use with option delete)
 search | boolean | `false` | If `true` create input with name from `inputCountryName`, live search in country list
 select | boolean | `false` | If `true` create list like select
+required | boolean | `false` | If `true` add required for input
                  
 ### countryAll
 
 Use with `delete` or `list`
 
+Example:
+
+```js
+  $('.YourUniqueClass').cntr({countryAll:['ar'], delete: true})
+  $('.YourUniqueClass').cntr({countryAll:['ar'], list: true})
+```
+
 ### delete
 
 Don't use with `list`
+
+```js
+  $('.YourUniqueClass').cntr({countryAll:['ar'], delete: true})
+```
 
 ### geo
 For define country by ip we use service [Sypexgeo](https://api.sypexgeo.net/)
