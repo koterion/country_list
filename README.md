@@ -11,6 +11,15 @@ npm install @koterion/country_list
 
 Download the [latest release](https://github.com/koterion/country_list/releases/latest), or better yet install it with [npm](https://www.npmjs.com/package/@koterion/country_list)
 
+Include css
+```html
+<link rel="stylesheet" href="path/to/countryList.css">
+```
+or sass
+```sass
+@import "@koterion/country_list/src/sass/countryList.sass"
+```
+
 #### options
 
 option | type | default | desc |
