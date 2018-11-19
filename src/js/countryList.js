@@ -19,7 +19,8 @@ import allCountries from './country.json'
       inputPhoneName: 'phone',
       list: false,
       search: false,
-      select: false
+      select: false,
+      required: false
     }, options)
 
     const body = $('body')
@@ -39,6 +40,27 @@ import allCountries from './country.json'
       .wrap('<div class="cntr-bl"></div>')
 
     const wrapBlock = $this.parent()
+
+    if (!options.select) {
+      wrapBlock.append(`<input class="${$this.attr('class')}" placeholder="${$this.text()}"/>`)
+      let inputCountry = $this.next('input')
+      inputCountry.data($this.data())
+      $this.remove()
+      $this = inputCountry
+
+      if (options.required) {
+        $this.attr('required', 'required')
+      }
+
+      if (options.search) {
+        $this.attr('name', options.inputCountryName)
+        $this.attr('type', 'text')
+      } else {
+        $this.attr('name', options.inputPhoneName)
+        $this.attr('type', 'tel')
+      }
+    }
+
     wrapBlock.append('<div class="cntr-ls"><ul></ul></div>')
     const countryList = wrapBlock.find('.cntr-ls').find('ul')
 
