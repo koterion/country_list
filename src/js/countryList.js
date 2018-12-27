@@ -41,7 +41,7 @@ class CountryList {
 
     let customOptions = options || {}
     this.options = {}
-    forEachProp(defaults, (key, value) => {
+    forEachObj(defaults, (key, value) => {
       this.options[key] = (customOptions.hasOwnProperty(key)) ? customOptions[key] : value
     })
   }
@@ -100,11 +100,11 @@ class CountryList {
       'name': this.options.search ? this.options.inputCountryName : this.options.inputPhoneName,
       'placeholder': this.selector.innerHTML
     })
-    for (let data in this.selector.dataset) {
-      if (this.selector.dataset.hasOwnProperty(data)) {
-        input.dataset[data] = this.selector.dataset[data]
-      }
-    }
+
+    forEachObj(this.selector.dataset, (key, value) => {
+      input.dataset[key] = value
+    })
+
     input.required = this.options.required
 
     this.wrapBlock.appendChild(input)
@@ -156,26 +156,24 @@ class CountryList {
 
   _addCountryListItems () {
     if (this.options.list) {
-      for (let i = 0; i < this.options.countryAll.length; i++) {
-        let iso = this.options.countryAll[i]
-        for (let j = 0; j < allCountries.length; j++) {
-          if (allCountries.hasOwnProperty(j) && allCountries[j]['iso_code'] === iso) {
-            this._addCountryListItem(allCountries[j])
+      forEachArr(this.options.countryAll, (value) => {
+        let iso = value
+        forEachArr(allCountries, (value) => {
+          if (value['iso_code'] === iso) {
+            this._addCountryListItem(value)
           }
-        }
-      }
+        })
+      })
     } else if (this.options.delete) {
-      for (let key in allCountries) {
-        if (allCountries.hasOwnProperty(key) && !this._checkForDelete(allCountries[key]['iso_code'])) {
-          this._addCountryListItem(allCountries[key])
+      forEachArr(allCountries, (value) => {
+        if (!this._checkForDelete(value['iso_code'])) {
+          this._addCountryListItem(value)
         }
-      }
+      })
     } else {
-      for (let key in allCountries) {
-        if (allCountries.hasOwnProperty(key)) {
-          this._addCountryListItem(allCountries[key])
-        }
-      }
+      forEachArr(allCountries, (value) => {
+        this._addCountryListItem(value)
+      })
     }
     this.countryListItems = this.countryList.querySelectorAll('li')
   }
@@ -183,12 +181,12 @@ class CountryList {
   _checkForDelete (country) {
     let check = false
 
-    for (let i = 0; i < this.options.countryAll.length; i++) {
-      if (country.indexOf(this.options.countryAll[i]) !== -1) {
+    forEachArr(this.options.countryAll, (value) => {
+      if (country.indexOf(value) !== -1) {
         check = true
-        break
+        return false
       }
-    }
+    })
 
     return check
   }
@@ -255,11 +253,10 @@ class CountryList {
 
   _createEl (el, options = {}) {
     let elem = document.createElement(el)
-    for (let key in options) {
-      if (options.hasOwnProperty(key)) {
-        elem.setAttribute(key, options[key])
-      }
-    }
+
+    forEachObj(options, (key, value) => {
+      elem.setAttribute(key, value)
+    })
 
     return elem
   }
@@ -273,17 +270,17 @@ class CountryList {
         _this.wrapBlock.classList.add('active')
 
         if (this.value.length > 0) {
-          for (let i = 0; i < items.length; i++) {
-            items[i].style.display = 'none'
-          }
+          forEachArr(items, (value) => {
+            value.style.display = 'none'
+          })
           let currentItems = _this.countryList.querySelectorAll('li[data-search^="' + this.value.toLowerCase() + '"]')
-          for (let i = 0; i < currentItems.length; i++) {
-            currentItems[i].style.display = 'block'
-          }
+          forEachArr(currentItems, (value) => {
+            value.style.display = 'block'
+          })
         } else {
-          for (let i = 0; i < items.length; i++) {
-            items[i].style.display = 'block'
-          }
+          forEachArr(items, (value) => {
+            value.style.display = 'block'
+          })
         }
 
         if (event.keyCode === 13) {
@@ -291,10 +288,8 @@ class CountryList {
           if (li) li.click()
         }
       })
-
-      for (let i = 0; i < items.length; i++) {
-        let li = this.countryListItems[i]
-        on(li, 'click', function () {
+      forEachArr(items, (value) => {
+        on(value, 'click', function () {
           _this.wrapBlock.classList.add('changed')
           _this.wrapBlock.classList.remove('active')
           _this.selector.value = this.dataset.name
@@ -303,11 +298,10 @@ class CountryList {
             _this.phoneInput.dataset.code = this.dataset.phone
           }
         })
-      }
+      })
     } else if (this.options.select) {
-      for (let i = 0; i < items.length; i++) {
-        let li = this.countryListItems[i]
-        on(li, 'click', function () {
+      forEachArr(items, (value) => {
+        on(value, 'click', function () {
           _this.wrapBlock.classList.add('changed')
           _this.wrapBlock.classList.remove('active')
           _this.selector.innerText = this.dataset.name
@@ -317,11 +311,10 @@ class CountryList {
             _this.phoneInput.dataset.code = this.dataset.phone
           }
         })
-      }
+      })
     } else if (this.options.flagInInput) {
-      for (let i = 0; i < items.length; i++) {
-        let li = this.countryListItems[i]
-        on(li, 'click', function () {
+      forEachArr(items, (value) => {
+        on(value, 'click', function () {
           _this.wrapBlock.classList.add('changed')
           _this.wrapBlock.classList.remove('active')
           _this.countryInput.value = this.dataset.name
@@ -330,7 +323,8 @@ class CountryList {
           _this.selector.value = this.dataset.phone
           _this.selector.focus()
         })
-      }
+      })
+
       on(this.selector, 'keyup', function () {
         if (this.value.search(/[0-9]/ig) === 0 && !this.classList.contains(_this.className + '_check')) {
           let countryFound = _this.countryList.querySelector('li[data-phone|="' + this.value + '"]')
@@ -345,16 +339,15 @@ class CountryList {
         }
       })
     } else {
-      for (let i = 0; i < items.length; i++) {
-        let li = this.countryListItems[i]
-        on(li, 'click', function () {
+      forEachArr(items, (value) => {
+        on(value, 'click', function () {
           _this.wrapBlock.classList.add('changed')
           _this.wrapBlock.classList.remove('active')
           _this.countryInput.value = this.dataset.name
           _this.selector.value = this.dataset.phone
           _this.selector.focus()
         })
-      }
+      })
     }
   }
 
@@ -460,11 +453,17 @@ function checkSelector (selector) {
   }
 }
 
-function forEachProp (obj, callback) {
+function forEachObj (obj, callback) {
   for (let prop in obj) {
     if (obj.hasOwnProperty(prop)) {
       callback(prop, obj[prop])
     }
+  }
+}
+
+function forEachArr (arr, callback) {
+  for (let i = 0; i < arr.length; i++) {
+    callback(arr[i], arr)
   }
 }
 
