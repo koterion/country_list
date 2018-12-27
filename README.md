@@ -21,7 +21,7 @@ Include css
 ```
 or sass
 ```sass
-@import "@koterion/country_list/src/sass/countryList.sass"
+@import url("@koterion/country_list/src/sass/countryList.sass")
 ```
 
 ### HTML
@@ -68,8 +68,8 @@ Use with `delete` or `list`
 Example:
 
 ```js
-  $('.YourUniqueClass').cntr({countryAll:['ar'], delete: true})
-  $('.YourUniqueClass').cntr({countryAll:['ar'], list: true})
+  countryList($('.YourUniqueClass'), {countryAll:['ar'], delete: true})
+  countryList($('.YourUniqueClass'), {countryAll:['ar'], list: true})
 ```
 
 ### delete
@@ -77,7 +77,7 @@ Example:
 Don't use with `list`
 
 ```js
-  $('.YourUniqueClass').cntr({countryAll:['ar'], delete: true})
+  countryList($('.YourUniqueClass'), {countryAll:['ar'], delete: true})
 ```
 
 ### geo
