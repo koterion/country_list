@@ -126,14 +126,12 @@ class CountryList {
       'class': this.className + '-ls'
     })
     this.wrapBlock.appendChild(block)
-    this.countryList = document.createElement('ul')
+    this.countryList = this._createEl('ul')
     block.appendChild(this.countryList)
   }
 
   _addCountryListItem (country) {
-    let countryName = country['country']
-    let countryCode = country['iso_code']
-    let phoneCode = country['country_code']
+    let [countryName, countryCode, phoneCode] = [country['country'], country['iso_code'], country['country_code']]
     let li = this._createEl('li', {
       'data-search': countryName.toLowerCase(),
       'data-name': countryName,
@@ -142,9 +140,9 @@ class CountryList {
     })
 
     if (this.options.flagInSelect) {
-      let span = document.createElement('span')
-      span.classList.add(this.className + '-flag')
-      span.classList.add(this.className + '-flag-' + countryCode)
+      let span = this._createEl('span', {
+        'class': this.className + '-flag ' + this.className + '-flag-' + countryCode
+      })
       li.appendChild(span)
       li.appendChild(document.createTextNode(countryName))
     } else {
@@ -253,7 +251,6 @@ class CountryList {
 
   _createEl (el, options = {}) {
     let elem = document.createElement(el)
-
     forEachObj(options, (key, value) => {
       elem.setAttribute(key, value)
     })
@@ -262,8 +259,7 @@ class CountryList {
   }
 
   _checkCountry () {
-    let _this = this
-    let items = this.countryListItems
+    let [_this, items] = [this, this.countryListItems]
     if (this.options.search) {
       on(this.selector, 'keyup', function (event) {
         _this.wrapBlock.classList.remove('changed')
@@ -411,7 +407,6 @@ class CountryList {
     if (attribute === 'phone') {
       if (element.value !== undefined && element.value !== '' && element.value.length > 1) {
         element.classList.add('valid')
-
         if (li) element.dataset.code = li.dataset[attribute]
       }
     }
@@ -427,10 +422,8 @@ class CountryList {
   }
 
   _scrollTo (element, to, duration) {
-    let start = element.scrollTop
+    let [start, currentTime, increment] = [element.scrollTop, 0, 20]
     let change = to - start
-    let currentTime = 0
-    let increment = 20
 
     function animateScroll () {
       currentTime += increment
@@ -485,16 +478,15 @@ Math.easeInOutQuad = function (t, b, c, d) {
 // For IE function closest https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 
 if (window.Element && !Element.prototype.closest) {
-  Element.prototype.closest =
-    function (s) {
-      let matches = (this.document || this.ownerDocument).querySelectorAll(s)
-      let i
-      let el = this
-      do {
-        i = matches.length
-        while (--i >= 0 && matches.item(i) !== el) {
-        }
-      } while ((i < 0) && (el = el.parentElement))
-      return el
-    }
+  Element.prototype.closest = function (s) {
+    let matches = (this.document || this.ownerDocument).querySelectorAll(s)
+    let i
+    let el = this
+    do {
+      i = matches.length
+      while (--i >= 0 && matches.item(i) !== el) {
+      }
+    } while ((i < 0) && (el = el.parentElement))
+    return el
+  }
 }
