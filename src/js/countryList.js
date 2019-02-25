@@ -292,6 +292,7 @@ class CountryList {
           if (_this.phoneInput) {
             _this.phoneInput.value = this.dataset.phone
             _this.phoneInput.dataset.code = this.dataset.phone
+            _this.phoneInput.classList.add('valid')
           }
         })
       })
@@ -305,6 +306,7 @@ class CountryList {
           if (_this.phoneInput) {
             _this.phoneInput.value = this.dataset.phone
             _this.phoneInput.dataset.code = this.dataset.phone
+            _this.phoneInput.classList.add('valid')
           }
         })
       })
