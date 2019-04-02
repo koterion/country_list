@@ -1,0 +1,104 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <title>Country List</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+</head>
+<body>
+  <div id="wrapper">
+    <h1>Country List</h1>
+    <form class="form">
+      <p class="form__description">Default setting</p>
+      <pre><code class="javascript">
+  countryList(document.querySelector('.phone'));
+        </code></pre>
+      <div class="form__row">
+        <div class="phone form__input">Enter phone</div>
+      </div>
+    </form>
+
+    <form class="form">
+      <p class="form__description">With flags in select</p>
+      <pre><code class="javascript">
+  countryList(document.querySelector('.flags'), { flagInSelect: true })
+        </code></pre>
+      <div class="form__row">
+        <div class="flags form__input">Enter phone</div>
+      </div>
+    </form>
+
+    <form class="form">
+      <p class="form__description">With flag in input</p>
+      <pre><code class="javascript">
+  countryList(document.querySelector('.flag'), { flagInInput: true })
+        </code></pre>
+      <div class="form__row">
+        <div class="flag form__input">Enter phone</div>
+      </div>
+    </form>
+
+    <form class="form">
+      <p class="form__description">Select with country & phone</p>
+      <pre><code class="javascript">
+  countryList(document.querySelector('.select'), { select: true })
+        </code></pre>
+      <div class="form__row">
+        <div class="select form__input">Country</div>
+      </div>
+      <div class="form__row">
+        <input name="phone" type="text" class="form__input">
+      </div>
+    </form>
+
+    <form class="form">
+      <p class="form__description">Select with choose countries</p>
+      <pre><code class="javascript">
+  countryList(document.querySelector('.search'), {
+    search: true,
+    hasPhone: false
+  })
+        </code></pre>
+      <div class="form__row">
+        <div class="choose form__input">Country</div>
+      </div>
+    </form>
+
+    <form class="form">
+      <p class="form__description">Select with delete choose countries</p>
+      <pre><code class="javascript">
+  countryList(document.querySelector('.choose'), {
+    select: true,
+    list: true,
+    countryAll: ['ar', 'fr'],
+    hasPhone: false
+  })
+        </code></pre>
+      <div class="form__row">
+        <div class="delete form__input">Country</div>
+      </div>
+    </form>
+
+    <form class="form">
+      <p class="form__description">Select with country and search</p>
+      <pre><code class="javascript">
+  countryList(document.querySelector('.delete'), {
+    select: true,
+    delete: true,
+    countryAll: ['ar', 'ua'],
+    hasPhone: false
+  })
+        </code></pre>
+      <div class="form__row">
+        <div class="search form__input">Enter country</div>
+      </div>
+    </form>
+  </div>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="./dist/css/main.css">
+  <link rel="stylesheet" href="./dist/css/countryList.css">
+  <script src="./dist/js/main.js"></script>
+</body>
+</html>

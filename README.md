@@ -19,9 +19,9 @@ Include css
 ```html
 <link rel="stylesheet" href="path/to/countryList.css">
 ```
-or sass
-```sass
-@import url("@koterion/country_list/src/sass/countryList.sass")
+or (if use Postcss)
+```css
+@import url('~@koterion/country_list');
 ```
 
 ### HTML
@@ -54,6 +54,8 @@ option | type | default | desc |
 flagInInput | boolean | `false` | If `true` add flags to current selector
 flagInSelect | boolean | `false` | If `true`  add flags to dropdown
 [geo](#geo) | object | | Use for checked country by ip |
+closestForm | string | `form` | Closest form or selector |
+hasPhone | boolean | `true` | Put current phone code to phone input |
 inputCountryName | string | `country` | Name for `input` with country name (auto create `type=hidden`)
 inputPhoneName | string | `phone` | Name for `input` with phone number (auto create)
 list | boolean | `false` | If `true` create list of country using `countryAll` (don't use with option delete)

@@ -2,7 +2,13 @@
 
 import allCountries from './country.json'
 
-window.countryList = function (selector, options) {
+if (typeof window === 'undefined') {
+  global.countryList = countryList
+} else {
+  window.countryList = countryList
+}
+
+function countryList (selector, options) {
   try {
     checkSelector(selector)
   } catch (e) {
@@ -26,8 +32,10 @@ let defaults = {
       return response.country.iso
     }
   },
+  hasPhone: true,
   inputCountryName: 'country',
   inputPhoneName: 'phone',
+  closestForm: 'form',
   list: false,
   search: false,
   select: false,
@@ -66,7 +74,10 @@ class CountryList {
     }
 
     if (this.options.search || this.options.select) {
-      this._findPhoneInput()
+      if (this.options.hasPhone) {
+        this._findPhoneInput()
+      }
+
       this._addArrow()
     }
 
@@ -238,7 +249,12 @@ class CountryList {
   }
 
   _findPhoneInput () {
-    this.phoneInput = this.selector.closest('form').querySelector('input[name="' + this.options.inputPhoneName + '"]')
+    if (this.selector.closest(this.options.closestForm).length === 1) {
+      this.phoneInput = this.selector.closest(this.options.closestForm).querySelector('input[name="' + this.options.inputPhoneName + '"]')
+    } else {
+      console.warn('Use closestForm option for setup current, unique closest selector')
+      this.phoneInput = this.selector.closest(this.options.closestForm).querySelector('input[name="' + this.options.inputPhoneName + '"]')
+    }
   }
 
   _addArrow () {
