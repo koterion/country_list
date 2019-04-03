@@ -6,10 +6,7 @@ $pad: 992px
 $padmini: 768px
 $mobile: 568px
 
-@import "fonts"
-@import "normalize"
-@import "variables"
-@import "mixing"
+@import "~sanitize.css"
 
 // Шрифт по всему сайту будет уменьшаться
 // в зависимости от размера экрана
@@ -33,57 +30,15 @@ html
 
   @media (min-width: $pad)
     *
+      -webkit-user-select: text
       user-select: none
 
 body
-  box-sizing: border-box
+  background: #fff
   font-size: 1.4rem
-  line-height: 1.4
-  color: $text
-  font-family: $primary
-  background: $bg-body
 
-  *,
-  *:after,
-  *:before
-    box-sizing: border-box
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
-    outline: none
-
-  [data-aload],
-  [data-aload]::before,
-  [data-aload]::after
-    background-image: none !important
-
-  ul,
-  ol
+  ul,li
     padding: 0
-    margin: 0
-    list-style: none
-
-  a
-    text-decoration: none
-
-  a,
-  button,
-  input[type="submit"]
-    +mx-transition(.5s)
-
-    &:hover
-      +mx-transition(.25s)
-
-    &:active
-      +mx-transition(.15s)
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p
-    font-weight: normal
-    margin: 0
 
 #wrapper
   max-width: 100%
@@ -91,18 +46,3 @@ body
   overflow: hidden
   min-height: 100vh
   position: relative
-
-  .site-content
-    min-height: 40vh
-
-    &.mr
-      margin-top: 5rem
-
-.box
-  +mx-box()
-
-a
-  color: #000
-
-  &:hover
-    color: #939393

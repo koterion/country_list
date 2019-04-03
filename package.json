@@ -1,15 +1,15 @@
 {
   "name": "@koterion/country_list",
-  "version": "2.2.0",
-  "description": "Plugin for creale list of country",
+  "version": "2.2.1",
+  "description": "Plugin for create list of country",
   "scripts": {
-    "dev": "webpack --mode development",
-    "build-only": "webpack --mode production",
-    "prod": "del-cli dist && webpack --mode production && html dist/*.html --indent-size 2",
-    "watch": "webpack --mode development --watch",
-    "start": "webpack-dev-server --mode development --open",
-    "beautify": "html dist/*.html --indent-size 2",
-    "clear": "del-cli dist"
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run development -- --watch",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "browserslist": [
     "> 1%",
@@ -31,38 +31,25 @@
     "dist"
   ],
   "main": "dist/countryList.js",
+  "style": "dist/css/countryList.css",
   "repository": {
     "type": "git",
     "url": "https://github.com/koterion/country_list"
   },
   "author": "koterion",
   "license": "MIT",
-  "homepage": "",
-  "dependencies": {
-    "autoprefixer": "^9.4.3",
-    "jquery": "^3.3.1",
-    "popper.js": "^1.14.6"
-  },
+  "homepage": "https://koterion.github.io/countryList/",
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.2.3",
-    "@babel/preset-env": "^7.2.3",
-    "babel-loader": "^8.0.4",
+    "autoprefixer": "^9.4.6",
     "browser-sync": "^2.26.3",
     "browser-sync-webpack-plugin": "^2.2.2",
-    "copy-webpack-plugin": "^4.6.0",
-    "css-loader": "^2.1.0",
-    "cssnano": "^4.1.8",
-    "del-cli": "^1.1.0",
-    "html-cli": "^1.0.0",
-    "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.5.0",
-    "node-sass": "^4.11.0",
-    "postcss-loader": "^3.0.0",
-    "raw-loader": "^1.0.0",
+    "cross-env": "^5.2.0",
+    "laravel-mix": "^4.0.14",
+    "sass": "^1.16.1",
     "sass-loader": "^7.1.0",
-    "webpack": "^4.28.2",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.14"
+    "tinymce": "^5.0.2",
+    "vue-template-compiler": "^2.5.22",
+    "sanitize.css": "^8.0.0",
+    "express": "^4.16.4"
   }
 }
