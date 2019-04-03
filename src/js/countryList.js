@@ -214,7 +214,7 @@ class CountryList {
 
   _checkForNumber () {
     let wrapBlock = this.wrapBlock
-    on(this.selector, 'keyup', function (event) {
+    on(this.selector, 'keypress', function (event) {
       if (!(event.key.search(/[^0-9]/ig) === -1)) {
         event.preventDefault()
       } else {
@@ -249,7 +249,7 @@ class CountryList {
   }
 
   _findPhoneInput () {
-    if (this.selector.closest(this.options.closestForm).length === 1) {
+    if (this.selector.closest(this.options.closestForm).length) {
       this.phoneInput = this.selector.closest(this.options.closestForm).querySelector('input[name="' + this.options.inputPhoneName + '"]')
     } else {
       console.warn('Use closestForm option for setup current, unique closest selector')
