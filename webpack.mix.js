@@ -23,3 +23,8 @@ mix.js('src/js/countryList.js', 'dist')
       autoprefixer
     ]
   })
+
+if (mix.inProduction()) {
+  mix.copy('*.html', '../demo/countryList')
+    .copyDirectory('dist', '../demo/countryList/dist')
+}
