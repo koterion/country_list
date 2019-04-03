@@ -1,5 +1,5 @@
-# Country list
-plugin for create list of country
+# Country list 
+Plugin for create list of country. [Examples]('https://koterion.github.io/countryList/)
 
 ## install
 
@@ -8,8 +8,6 @@ npm install @koterion/country_list
 ```
 
 ## use
-
-Use with JQuery
 
 Download the [latest release](https://github.com/koterion/country_list/releases/latest), or better yet install it with [npm](https://www.npmjs.com/package/@koterion/country_list)
 

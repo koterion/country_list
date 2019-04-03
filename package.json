@@ -38,7 +38,7 @@
   },
   "author": "koterion",
   "license": "MIT",
-  "homepage": "https://github.com/koterion/country_list",
+  "homepage": "https://koterion.github.io/countryList/",
   "devDependencies": {
     "autoprefixer": "^9.4.6",
     "browser-sync": "^2.26.3",
