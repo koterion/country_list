@@ -1,5 +1,5 @@
 # Country list 
-Plugin for create list of country. [Examples]('https://koterion.github.io/countryList/)
+Plugin for create list of country. [Examples](https://koterion.github.io/countryList/)
 
 ## install
 
