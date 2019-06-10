@@ -39,7 +39,8 @@ let defaults = {
   list: false,
   search: false,
   select: false,
-  required: false
+  required: false,
+  countries: allCountries
 }
 
 class CountryList {
@@ -167,20 +168,20 @@ class CountryList {
     if (this.options.list) {
       forEachArr(this.options.countryAll, (value) => {
         let iso = value
-        forEachArr(allCountries, (value) => {
+        forEachArr(this.options.countries, (value) => {
           if (value['iso_code'] === iso) {
             this._addCountryListItem(value)
           }
         })
       })
     } else if (this.options.delete) {
-      forEachArr(allCountries, (value) => {
+      forEachArr(this.options.countries, (value) => {
         if (!this._checkForDelete(value['iso_code'])) {
           this._addCountryListItem(value)
         }
       })
     } else {
-      forEachArr(allCountries, (value) => {
+      forEachArr(this.options.countries, (value) => {
         this._addCountryListItem(value)
       })
     }
