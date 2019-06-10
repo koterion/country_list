@@ -250,11 +250,10 @@ class CountryList {
   }
 
   _findPhoneInput () {
-    if (this.selector.closest(this.options.closestForm).length) {
+    if (this.selector.closest(this.options.closestForm) && this.selector.closest(this.options.closestForm).length) {
       this.phoneInput = this.selector.closest(this.options.closestForm).querySelector('input[name="' + this.options.inputPhoneName + '"]')
     } else {
-      console.warn('Use closestForm option for setup current, unique closest selector')
-      this.phoneInput = this.selector.closest(this.options.closestForm).querySelector('input[name="' + this.options.inputPhoneName + '"]')
+      console.error('Use closestForm option for setup current, unique closest selector')
     }
   }
 
@@ -310,6 +309,7 @@ class CountryList {
             _this.phoneInput.value = this.dataset.phone
             _this.phoneInput.dataset.code = this.dataset.phone
             _this.phoneInput.classList.add('valid')
+            _this.phoneInput.removeAttribute('disabled')
           }
         })
       })
@@ -324,6 +324,7 @@ class CountryList {
             _this.phoneInput.value = this.dataset.phone
             _this.phoneInput.dataset.code = this.dataset.phone
             _this.phoneInput.classList.add('valid')
+            _this.phoneInput.removeAttribute('disabled')
           }
         })
       })
@@ -426,6 +427,7 @@ class CountryList {
     if (attribute === 'phone') {
       if (element.value !== undefined && element.value !== '' && element.value.length > 1) {
         element.classList.add('valid')
+        element.removeAttribute('disabled')
         if (li) element.dataset.code = li.dataset[attribute]
       }
     }
