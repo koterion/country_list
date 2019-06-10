@@ -39,7 +39,8 @@ let defaults = {
   list: false,
   search: false,
   select: false,
-  required: false
+  required: false,
+  countries: allCountries
 }
 
 class CountryList {
@@ -167,20 +168,20 @@ class CountryList {
     if (this.options.list) {
       forEachArr(this.options.countryAll, (value) => {
         let iso = value
-        forEachArr(allCountries, (value) => {
+        forEachArr(this.options.countries, (value) => {
           if (value['iso_code'] === iso) {
             this._addCountryListItem(value)
           }
         })
       })
     } else if (this.options.delete) {
-      forEachArr(allCountries, (value) => {
+      forEachArr(this.options.countries, (value) => {
         if (!this._checkForDelete(value['iso_code'])) {
           this._addCountryListItem(value)
         }
       })
     } else {
-      forEachArr(allCountries, (value) => {
+      forEachArr(this.options.countries, (value) => {
         this._addCountryListItem(value)
       })
     }
@@ -249,11 +250,10 @@ class CountryList {
   }
 
   _findPhoneInput () {
-    if (this.selector.closest(this.options.closestForm).length) {
+    if (this.selector.closest(this.options.closestForm) && this.selector.closest(this.options.closestForm).length) {
       this.phoneInput = this.selector.closest(this.options.closestForm).querySelector('input[name="' + this.options.inputPhoneName + '"]')
     } else {
-      console.warn('Use closestForm option for setup current, unique closest selector')
-      this.phoneInput = this.selector.closest(this.options.closestForm).querySelector('input[name="' + this.options.inputPhoneName + '"]')
+      console.error('Use closestForm option for setup current, unique closest selector')
     }
   }
 
@@ -309,6 +309,7 @@ class CountryList {
             _this.phoneInput.value = this.dataset.phone
             _this.phoneInput.dataset.code = this.dataset.phone
             _this.phoneInput.classList.add('valid')
+            _this.phoneInput.removeAttribute('disabled')
           }
         })
       })
@@ -323,6 +324,7 @@ class CountryList {
             _this.phoneInput.value = this.dataset.phone
             _this.phoneInput.dataset.code = this.dataset.phone
             _this.phoneInput.classList.add('valid')
+            _this.phoneInput.removeAttribute('disabled')
           }
         })
       })
@@ -425,6 +427,7 @@ class CountryList {
     if (attribute === 'phone') {
       if (element.value !== undefined && element.value !== '' && element.value.length > 1) {
         element.classList.add('valid')
+        element.removeAttribute('disabled')
         if (li) element.dataset.code = li.dataset[attribute]
       }
     }
