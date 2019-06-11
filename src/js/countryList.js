@@ -40,7 +40,8 @@ let defaults = {
   search: false,
   select: false,
   required: false,
-  countries: allCountries
+  countries: allCountries,
+  disabledPhone: false
 }
 
 class CountryList {
@@ -252,6 +253,9 @@ class CountryList {
   _findPhoneInput () {
     if (this.selector.closest(this.options.closestForm) && this.selector.closest(this.options.closestForm).length) {
       this.phoneInput = this.selector.closest(this.options.closestForm).querySelector('input[name="' + this.options.inputPhoneName + '"]')
+      if (this.options.disabledPhone) {
+        this.phoneInput.setAttribute('disabled', 'true')
+      }
     } else {
       console.error('Use closestForm option for setup current, unique closest selector')
     }

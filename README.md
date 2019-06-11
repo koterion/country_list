@@ -60,6 +60,8 @@ list | boolean | `false` | If `true` create list of country using `countryAll` (
 search | boolean | `false` | If `true` create input with name from `inputCountryName`, live search in country list
 select | boolean | `false` | If `true` create list like select
 required | boolean | `false` | If `true` add required for input
+[countries](#countries) | json |  | Countries in json format
+disabledPhone | boolean | `false` | If `true` add disabled for phone when country doesn't choose
                  
 ### countryAll
 
@@ -95,4 +97,19 @@ You can rewrite method, it option `geo` by default it's object with this paramet
 Also you can use data attribute `data-current` with current country in ISO format. Example:
 ```html
 <div class="select" data-current="us"></div>
+```
+
+### countries
+
+```json
+{
+    "country":"Afghanistan",
+    "iso_code":"af",
+    "country_code":"93"
+},
+{
+    "country":"Albania",
+    "iso_code":"al",
+    "country_code":"355"
+}
 ```
