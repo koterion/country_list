@@ -1,6 +1,6 @@
 {
   "name": "@koterion/country_list",
-  "version": "2.2.6",
+  "version": "2.2.7",
   "description": "Plugin for create list of country",
   "scripts": {
     "dev": "npm run development",
@@ -11,22 +11,19 @@
     "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
+  "standard": {
+    "envs": {
+      "browser": true,
+      "jquery": true
+    }
+  },
   "browserslist": [
-    "> 1%",
+    "> 5%",
     "last 4 versions",
     "ie >= 10",
     "Firefox ESR",
     "Safari >= 10"
   ],
-  "eslintConfig": {
-    "env": {
-      "browser": true,
-      "node": true,
-      "jasmine": true,
-      "jquery": true,
-      "es6": true
-    }
-  },
   "files": [
     "dist"
   ],
@@ -40,15 +37,15 @@
   "license": "MIT",
   "homepage": "https://koterion.github.io/countryList/",
   "devDependencies": {
-    "autoprefixer": "^9.6.0",
+    "autoprefixer": "^9.6.1",
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
     "cross-env": "^5.2.0",
-    "laravel-mix": "^4.0.16",
-    "sass": "^1.21.0",
-    "sass-loader": "^7.1.0",
+    "laravel-mix": "^4.1.2",
+    "sass": "^1.22.9",
+    "sass-loader": "^7.2.0",
     "vue-template-compiler": "^2.6.10",
-    "sanitize.css": "^10.0.0",
+    "sanitize.css": "^11.0.0",
     "express": "^4.17.1"
   }
 }

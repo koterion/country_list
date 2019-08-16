@@ -12,3 +12,11 @@ countryList(document.querySelector('.delete'), {
   countryAll: ['ar', 'ua'],
   hasPhone: false
 })
+
+countryList(document.querySelector('.select_flag'), {
+  inputCountryName: 'country0',
+  inputPhoneName: 'phone0',
+  select: true,
+  flagInSelect: true,
+  flagInInput: true
+})
