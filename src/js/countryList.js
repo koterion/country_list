@@ -215,7 +215,7 @@ class CountryList {
       if (_this.wrapBlock.classList.contains('active') && !(event.key.search(/^[^\d+=()[\]{}\\/^$|?*!@#%:;&,_.'"\s]+$/) === -1) && event.which !== 13) {
         const scrollEl = _this.wrapBlock.querySelector('li[data-search^="' + String.fromCharCode(event.which).toLowerCase() + '"]')
 
-        if (scrollEl !== null && scrollEl.length !== 0) {
+        if (scrollEl && scrollEl.length !== 0) {
           _this._scrollTo(_this.countryList, scrollEl.offsetTop - 20, 800)
         }
       }
@@ -384,14 +384,18 @@ class CountryList {
   }
 
   _currentGeo () {
-    const changeIso = (iso = null) => {
+    const changeIso = (iso = undefined) => {
       if (iso) {
         this.currentCountry = iso
       }
 
-      this.wrapBlock.classList.add('changed')
-      this.selector.classList.add(this.className + '_check')
-      this._checkGeo()
+      const hasCurrent = this.options.countryAll.find(el => { return el === this.currentCountry }) !== undefined
+
+      if ((!hasCurrent && !this.options.delete) || (this.options.list && hasCurrent)) {
+        this.wrapBlock.classList.add('changed')
+        this.selector.classList.add(this.className + '_check')
+        this._checkGeo()
+      }
     }
 
     if (this.currentCountry === undefined || this.currentCountry === '') {
@@ -422,8 +426,6 @@ class CountryList {
         Http.open('GET', this.options.geo.url, true)
         Http.send()
       }
-    } else {
-      changeIso()
     }
   }
 
