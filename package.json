@@ -1,6 +1,6 @@
 {
   "name": "@koterion/country_list",
-  "version": "2.2.8",
+  "version": "2.2.9",
   "description": "Plugin for create list of country",
   "scripts": {
     "dev": "npm run development",
