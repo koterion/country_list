@@ -152,7 +152,7 @@ class CountryList {
   }
 
   _addCountryListItem (country) {
-    const [countryName, countryCode, phoneCode] = [country['country'], country['iso_code'], country['country_code']]
+    const [countryName, countryCode, phoneCode] = [country.country, country.iso_code, country.country_code]
     const li = this._createEl('li', {
       'data-search': countryName.toLowerCase(),
       'data-name': countryName,
@@ -177,14 +177,14 @@ class CountryList {
     if (this.options.list) {
       forEachArr(this.options.countryAll, (iso) => {
         forEachArr(this.options.countries, (value) => {
-          if (value['iso_code'] === iso) {
+          if (value.iso_code === iso) {
             this._addCountryListItem(value)
           }
         })
       })
     } else if (this.options.delete) {
       forEachArr(this.options.countries, (value) => {
-        if (!this._checkForDelete(value['iso_code'])) {
+        if (!this._checkForDelete(value.iso_code)) {
           this._addCountryListItem(value)
         }
       })
@@ -507,10 +507,10 @@ class CountryList {
 
 function checkSelector (selector) {
   if (selector === undefined || selector.length === 0) {
-    throw Error(`CountryList: Didn't find selector`)
+    throw Error('CountryList: Didn\'t find selector')
   } else if (selector.length > 1) {
     throw Error(`CountryList: Please use one one selector, not more, in one connection
-        You use ` + selector.length + ` selectors`)
+        You use ` + selector.length + ' selectors')
   }
 }
 
