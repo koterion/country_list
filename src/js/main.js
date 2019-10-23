@@ -1,4 +1,12 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+import CountryList from '../react/countryList'
 import './countryList.js'
+
+ReactDOM.render(
+  <CountryList className='form__input'>Phone Number</CountryList>,
+  document.getElementById('app')
+)
 
 countryList(document.querySelector('.phone'), { inputCountryName: 'country1', inputPhoneName: 'phone1' })
 countryList(document.querySelector('.flags'), { flagInSelect: true })
@@ -11,12 +19,4 @@ countryList(document.querySelector('.delete'), {
   delete: true,
   countryAll: ['ar', 'ua'],
   hasPhone: false
-})
-
-countryList(document.querySelector('.select_flag'), {
-  inputCountryName: 'country0',
-  inputPhoneName: 'phone0',
-  select: true,
-  flagInSelect: true,
-  flagInInput: true
 })

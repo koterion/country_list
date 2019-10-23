@@ -1,6 +1,6 @@
 'use strict'
 
-import allCountries from './country.json'
+import allCountries from '../country.json'
 
 if (typeof window === 'undefined') {
   global.countryList = countryList
