@@ -1,6 +1,6 @@
 {
   "name": "@koterion/country_list",
-  "version": "2.2.8",
+  "version": "2.2.9",
   "description": "Plugin for create list of country",
   "scripts": {
     "dev": "npm run development",
@@ -37,13 +37,14 @@
   "license": "MIT",
   "homepage": "https://koterion.github.io/countryList/",
   "devDependencies": {
-    "autoprefixer": "^9.6.1",
+    "autoprefixer": "^9.6.5",
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
-    "cross-env": "^5.2.0",
-    "laravel-mix": "^4.1.2",
-    "sass": "^1.22.10",
-    "sass-loader": "^7.3.1",
+    "cross-env": "^6.0.3",
+    "laravel-mix": "^5.0.0",
+    "sass": "^1.23.0",
+    "sass-loader": "^8.0.0",
+    "standard": "^14.3.1",
     "vue-template-compiler": "^2.6.10",
     "sanitize.css": "^11.0.0",
     "express": "^4.17.1"
