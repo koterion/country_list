@@ -3,6 +3,31 @@ import ReactDOM from 'react-dom'
 import CountryList from '../react/countryList'
 import './countryList.js'
 
+const options = {
+  // countryAll: ['ua'],
+  // delete: true,
+  // flagInInput: true,
+  // flagInSelect: true,
+  // geo: {
+  //   url: 'https://api.sypexgeo.net/',
+  //   getIso: (response) => {
+  //     return response.country.iso
+  //   }
+  // },
+  // hasPhone: true,
+  // inputCountryName: 'country',
+  // inputPhoneName: 'phone',
+  // closestForm: 'form',
+  // list: true,
+  // search: false,
+  // select: true,
+  // required: false,
+  // disabledPhone: false,
+  // cookies: true,
+  // current: 'ua',
+  // autocomplete: false
+}
+
 ReactDOM.render(
   <CountryList className='form__input'>Phone Number</CountryList>,
   document.getElementById('app')

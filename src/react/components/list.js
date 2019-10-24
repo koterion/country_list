@@ -3,15 +3,34 @@ import PropTypes from 'prop-types'
 import Item from './item'
 
 export default function List (props) {
+  let { countries, flag, click, remove, list, countryAll } = props
+
+  if (remove) {
+    countryAll.forEach(el => {
+      countries = countries.filter(country => country.iso !== el)
+    })
+  } else if (list) {
+    const arr = []
+    countryAll.forEach(el => {
+      const item = countries.find(country => country.iso === el)
+
+      if (item) {
+        arr.push(item)
+      }
+    })
+
+    countries = arr
+  }
+
   return (
     <div className='cntr-ls'>
       <ul>
-        {props.countries.map((el, index) =>
+        {countries.map((el, index) =>
           <Item
-            flag={props.flag}
+            flag={flag}
             country={el}
             key={index}
-            onClick={props.onClick}
+            click={click}
           />)}
       </ul>
     </div>
@@ -19,6 +38,10 @@ export default function List (props) {
 }
 
 List.propTypes = {
-  flag: PropTypes.bool,
-  countries: PropTypes.array.isRequired
+  flag: PropTypes.bool.isRequired,
+  countries: PropTypes.array.isRequired,
+  countryAll: PropTypes.array,
+  remove: PropTypes.bool,
+  list: PropTypes.bool,
+  click: PropTypes.func.isRequired
 }

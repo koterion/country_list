@@ -9,7 +9,41 @@
     "watch-poll": "npm run watch -- --watch-poll",
     "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod": "npm run production",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "unit": "jest"
+  },
+  "babel": {
+    "env": {
+      "test": {
+        "presets": [
+          [
+            "env",
+            {
+              "targets": {
+                "node": "current"
+              }
+            }
+          ],
+          [
+            "@babel/preset-react"
+          ]
+        ]
+      }
+    }
+  },
+  "jest": {
+    "verbose": false ,
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "transform": {
+      "^.+\\.(js|jsx|tsk)?$": "<rootDir>/node_modules/babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)",
+      "<rootDir>/node_modules/"
+    ]
   },
   "standard": {
     "envs": {
@@ -39,10 +73,13 @@
   "devDependencies": {
     "@babel/preset-react": "^7.6.3",
     "autoprefixer": "^9.6.1",
+    "babel-jest": "^24.9.0",
+    "babel-preset-env": "^1.7.0",
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
     "cross-env": "^5.2.0",
     "express": "^4.17.1",
+    "jest": "^24.9.0",
     "laravel-mix": "^4.1.2",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",

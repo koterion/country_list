@@ -152,22 +152,22 @@ class CountryList {
   }
 
   _addCountryListItem (country) {
-    const [countryName, countryCode, phoneCode] = [country.country, country.iso_code, country.country_code]
+    const { name, iso, code } = country
     const li = this._createEl('li', {
-      'data-search': countryName.toLowerCase(),
-      'data-name': countryName,
-      'data-code': countryCode,
-      'data-phone': phoneCode
+      'data-search': name.toLowerCase(),
+      'data-name': name,
+      'data-code': iso,
+      'data-phone': code
     })
 
     if (this.options.flagInSelect) {
       const span = this._createEl('span', {
-        class: this.className + '-flag ' + this.className + '-flag-' + countryCode
+        class: this.className + '-flag ' + this.className + '-flag-' + iso
       })
       li.appendChild(span)
-      li.appendChild(document.createTextNode(countryName))
+      li.appendChild(document.createTextNode(name))
     } else {
-      li.innerText = countryName
+      li.innerText = name
     }
 
     this.countryList.appendChild(li)
@@ -177,14 +177,14 @@ class CountryList {
     if (this.options.list) {
       forEachArr(this.options.countryAll, (iso) => {
         forEachArr(this.options.countries, (value) => {
-          if (value.iso_code === iso) {
+          if (value.iso === iso) {
             this._addCountryListItem(value)
           }
         })
       })
     } else if (this.options.delete) {
       forEachArr(this.options.countries, (value) => {
-        if (!this._checkForDelete(value.iso_code)) {
+        if (!this._checkForDelete(value.iso)) {
           this._addCountryListItem(value)
         }
       })
