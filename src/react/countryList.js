@@ -13,6 +13,7 @@ class CountryList extends React.Component {
       active: false,
       value: '',
       country: '',
+      code: '',
       ico: ''
     }
 
@@ -59,7 +60,8 @@ class CountryList extends React.Component {
     const data = {
       changed: true,
       country: value.name,
-      iso: value.iso
+      iso: value.iso,
+      code: value.code
     }
 
     if (this.props.search || this.props.select) {
@@ -86,6 +88,12 @@ class CountryList extends React.Component {
     }
 
     this.setState(data)
+  }
+
+  changeInputValue (value) {
+    this.setState({
+      value: value
+    })
   }
 
   render () {
@@ -129,6 +137,8 @@ class CountryList extends React.Component {
               autocomplete={this.props.autocomplete}
               required={this.props.required}
               name={this.props.search ? this.props.inputCountryName : this.props.inputPhoneName}
+              change={this.changeInputValue.bind(this)}
+              code={this.state.code}
             />
           )}
         <List

@@ -19,7 +19,7 @@ const options = {
   // inputPhoneName: 'phone',
   // closestForm: 'form',
   // list: true,
-  // search: false,
+  // search: true,
   // select: true,
   // required: false,
   // disabledPhone: false,
@@ -29,7 +29,7 @@ const options = {
 }
 
 ReactDOM.render(
-  <CountryList className='form__input'>Phone Number</CountryList>,
+  <CountryList className='form__input' {...options}>Phone Number</CountryList>,
   document.getElementById('app')
 )
 

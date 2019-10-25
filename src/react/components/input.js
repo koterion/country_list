@@ -1,27 +1,69 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default function Input (props) {
-  const param = {
-    className: props.className,
-    type: !props.search ? 'tel' : 'text',
-    onClick: props.click.bind(),
-    defaultValue: props.value,
-    placeholder: props.text,
-    name: props.name
+export default class Input extends React.Component {
+  constructor (props) {
+    super(props)
+    this.handleInput = this.handleInput.bind(this)
+    this.input = React.createRef()
   }
 
-  if (!props.autocomplete) {
-    param.autoComplete = 'off'
+  componentDidUpdate () {
+    this.input.current.focus()
   }
 
-  if (props.required) {
-    param.required = true
+  handleInput (event) {
+    const type = event.target.type
+    const value = event.target.value
+    const code = this.props.code
+    let valid = true
+
+    switch (type) {
+      case 'text':
+        if (value.match(/[A-zА-яЁё\s]+$/) === null || value.replace(/\s/g, '') === '') {
+          valid = false
+        }
+        break
+      case 'tel':
+        if ((value.match(/[0-9]$/) === null || value.replace(/\s/g, '') === '') || value.match(new RegExp(code)) === null) {
+          valid = false
+        }
+        break
+      default:
+        break
+    }
+
+    if (valid || value.length === 0) {
+      if (type === 'tel') {
+        this.props.change(value.length !== 0 ? value : code)
+      } else {
+        this.props.change(value)
+      }
+    }
   }
 
-  return (
-    <input {...param} />
-  )
+  render () {
+    const param = {
+      className: this.props.className,
+      type: !this.props.search ? 'tel' : 'text',
+      value: this.props.value,
+      onClick: this.props.click,
+      placeholder: this.props.text,
+      name: this.props.name
+    }
+
+    if (!this.props.autocomplete) {
+      param.autoComplete = 'off'
+    }
+
+    if (this.props.required) {
+      param.required = true
+    }
+
+    return (
+      <input {...param} onChange={this.handleInput} ref={this.input} />
+    )
+  }
 }
 
 Input.propTypes = {
