@@ -33802,22 +33802,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-function _typeof2(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof2 = function _typeof2(obj) { return typeof obj; }; } else { _typeof2 = function _typeof2(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof2(obj); }
-
-function _typeof(obj) {
-  if (typeof Symbol === "function" && _typeof2(Symbol.iterator) === "symbol") {
-    _typeof = function _typeof(obj) {
-      return _typeof2(obj);
-    };
-  } else {
-    _typeof = function _typeof(obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : _typeof2(obj);
-    };
-  }
-
-  return _typeof(obj);
-}
-
 function _extends() {
   _extends = Object.assign || function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -33836,165 +33820,72 @@ function _extends() {
   return _extends.apply(this, arguments);
 }
 
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
 
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
 
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _possibleConstructorReturn(self, call) {
-  if (call && (_typeof(call) === "object" || typeof call === "function")) {
-    return call;
-  }
-
-  return _assertThisInitialized(self);
-}
-
-function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
-    return o.__proto__ || Object.getPrototypeOf(o);
+function Input(props) {
+  var param = {
+    className: props.className,
+    type: !props.search ? 'tel' : 'text',
+    value: props.value,
+    onClick: props.click,
+    placeholder: props.text,
+    name: props.name
   };
-  return _getPrototypeOf(o);
-}
+  var input = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
 
-function _assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-  }
+  function handleInput(event) {
+    var type = event.target.type;
+    var value = event.target.value;
+    var code = props.code;
+    var valid = true;
 
-  return self;
-}
-
-function _inherits(subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function");
-  }
-
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _setPrototypeOf(subClass, superClass);
-}
-
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
-    o.__proto__ = p;
-    return o;
-  };
-
-  return _setPrototypeOf(o, p);
-}
-
-
-
-
-var Input =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Input, _React$Component);
-
-  function Input(props) {
-    var _this;
-
-    _classCallCheck(this, Input);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Input).call(this, props));
-    _this.handleInput = _this.handleInput.bind(_assertThisInitialized(_this));
-    _this.input = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-    return _this;
-  }
-
-  _createClass(Input, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      this.input.current.focus();
-    }
-  }, {
-    key: "handleInput",
-    value: function handleInput(event) {
-      var type = event.target.type;
-      var value = event.target.value;
-      var code = this.props.code;
-      var valid = true;
-
-      switch (type) {
-        case 'text':
-          if (value.match(/[A-zА-яЁё\s]+$/) === null || value.replace(/\s/g, '') === '') {
-            valid = false;
-          }
-
-          break;
-
-        case 'tel':
-          if (value.match(/[0-9]$/) === null || value.replace(/\s/g, '') === '' || value.match(new RegExp(code)) === null) {
-            valid = false;
-          }
-
-          break;
-
-        default:
-          break;
-      }
-
-      if (valid || value.length === 0) {
-        if (type === 'tel') {
-          this.props.change(value.length !== 0 ? value : code);
-        } else {
-          this.props.change(value);
+    switch (type) {
+      case 'text':
+        if (value.match(/[A-zА-яЁё\s]+$/) === null || value.replace(/\s/g, '') === '') {
+          valid = false;
         }
+
+        break;
+
+      case 'tel':
+        if (value.match(/[0-9]$/) === null || value.replace(/\s/g, '') === '' || value.match(new RegExp(code)) === null) {
+          valid = false;
+        }
+
+        break;
+
+      default:
+        break;
+    }
+
+    if (valid || value.length === 0) {
+      if (type === 'tel') {
+        props.change(value.length !== 0 ? value : code);
+      } else {
+        props.change(value);
       }
     }
-  }, {
-    key: "render",
-    value: function render() {
-      var param = {
-        className: this.props.className,
-        type: !this.props.search ? 'tel' : 'text',
-        value: this.props.value,
-        onClick: this.props.click,
-        placeholder: this.props.text,
-        name: this.props.name
-      };
+  }
 
-      if (!this.props.autocomplete) {
-        param.autoComplete = 'off';
-      }
-
-      if (this.props.required) {
-        param.required = true;
-      }
-
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", _extends({}, param, {
-        onChange: this.handleInput,
-        ref: this.input
-      }));
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useLayoutEffect"])(function () {
+    if (param.type === 'tel') {
+      input.current.focus();
     }
-  }]);
+  }, [props.value]);
 
-  return Input;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+  if (!props.autocomplete) {
+    param.autoComplete = 'off';
+  }
 
+  if (props.required) {
+    param.required = true;
+  }
 
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", _extends({}, param, {
+    onChange: handleInput,
+    ref: input
+  }));
+}
 Input.propTypes = {
   className: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
   search: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool,
@@ -34383,7 +34274,8 @@ function (_React$Component) {
         click: this.clickCountry.bind(this),
         countryAll: this.props.countryAll,
         remove: this.props["delete"],
-        list: this.props.list
+        list: this.props.list,
+        value: this.state.value
       }), this.props.flagInInput && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_flag__WEBPACK_IMPORTED_MODULE_5__["default"], {
         click: this.toggleActive.bind(this),
         iso: this.state.iso

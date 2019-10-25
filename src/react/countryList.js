@@ -148,6 +148,7 @@ class CountryList extends React.Component {
           countryAll={this.props.countryAll}
           remove={this.props.delete}
           list={this.props.list}
+          value={this.state.value}
         />
 
         {this.props.flagInInput && <Flag click={this.toggleActive.bind(this)} iso={this.state.iso} />}

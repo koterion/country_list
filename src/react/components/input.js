@@ -1,21 +1,22 @@
-import React from 'react'
+import React, { useRef, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 
-export default class Input extends React.Component {
-  constructor (props) {
-    super(props)
-    this.handleInput = this.handleInput.bind(this)
-    this.input = React.createRef()
+export default function Input (props) {
+  const param = {
+    className: props.className,
+    type: !props.search ? 'tel' : 'text',
+    value: props.value,
+    onClick: props.click,
+    placeholder: props.text,
+    name: props.name
   }
 
-  componentDidUpdate () {
-    this.input.current.focus()
-  }
+  const input = useRef(null)
 
-  handleInput (event) {
+  function handleInput (event) {
     const type = event.target.type
     const value = event.target.value
-    const code = this.props.code
+    const code = props.code
     let valid = true
 
     switch (type) {
@@ -35,35 +36,30 @@ export default class Input extends React.Component {
 
     if (valid || value.length === 0) {
       if (type === 'tel') {
-        this.props.change(value.length !== 0 ? value : code)
+        props.change(value.length !== 0 ? value : code)
       } else {
-        this.props.change(value)
+        props.change(value)
       }
     }
   }
 
-  render () {
-    const param = {
-      className: this.props.className,
-      type: !this.props.search ? 'tel' : 'text',
-      value: this.props.value,
-      onClick: this.props.click,
-      placeholder: this.props.text,
-      name: this.props.name
+  useLayoutEffect(() => {
+    if (param.type === 'tel') {
+      input.current.focus()
     }
+  }, [props.value])
 
-    if (!this.props.autocomplete) {
-      param.autoComplete = 'off'
-    }
-
-    if (this.props.required) {
-      param.required = true
-    }
-
-    return (
-      <input {...param} onChange={this.handleInput} ref={this.input} />
-    )
+  if (!props.autocomplete) {
+    param.autoComplete = 'off'
   }
+
+  if (props.required) {
+    param.required = true
+  }
+
+  return (
+    <input {...param} onChange={handleInput} ref={input} />
+  )
 }
 
 Input.propTypes = {
