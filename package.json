@@ -12,27 +12,8 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "unit": "jest"
   },
-  "babel": {
-    "env": {
-      "test": {
-        "presets": [
-          [
-            "env",
-            {
-              "targets": {
-                "node": "current"
-              }
-            }
-          ],
-          [
-            "@babel/preset-react"
-          ]
-        ]
-      }
-    }
-  },
   "jest": {
-    "verbose": false ,
+    "verbose": false,
     "moduleFileExtensions": [
       "js",
       "jsx"
@@ -44,12 +25,6 @@
       "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)",
       "<rootDir>/node_modules/"
     ]
-  },
-  "standard": {
-    "envs": {
-      "browser": true,
-      "jquery": true
-    }
   },
   "browserslist": [
     "> 5%",
@@ -71,23 +46,31 @@
   "license": "MIT",
   "homepage": "https://koterion.github.io/countryList/",
   "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
-    "autoprefixer": "^9.6.1",
+    "autoprefixer": "^9.7.0",
     "babel-jest": "^24.9.0",
-    "babel-preset-env": "^1.7.0",
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
-    "cross-env": "^5.2.0",
+    "cross-env": "^6.0.3",
     "express": "^4.17.1",
     "jest": "^24.9.0",
-    "laravel-mix": "^4.1.2",
+    "laravel-mix": "^5.0.0",
     "prop-types": "^15.7.2",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
     "sanitize.css": "^11.0.0",
-    "sass": "^1.22.10",
+    "sass": "^1.23.1",
     "sass-loader": "^7.3.1",
     "standard": "^14.3.1",
     "vue-template-compiler": "^2.6.10"
+  },
+  "dependencies": {
+    "babel-eslint": "^10.0.3",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3"
   }
 }
