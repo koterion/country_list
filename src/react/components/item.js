@@ -6,7 +6,8 @@ export default function Item (props) {
     props.click(props.country)
   }
 
-  const { name, iso, code } = props.country
+  const { country, flag } = props
+  const { name, iso, code } = country
 
   return (
     <li
@@ -14,8 +15,9 @@ export default function Item (props) {
       data-phone={code}
       data-code={iso}
       onClick={chooseCountry}
+      role='none'
     >
-      {props.flag &&
+      {flag &&
         <span className={`cntr-flag cntr-flag-${iso}`} />}
       {name}
     </li>
@@ -23,10 +25,11 @@ export default function Item (props) {
 }
 
 Item.propTypes = {
-  flag: PropTypes.bool,
+  flag: PropTypes.bool.isRequired,
   country: PropTypes.shape({
     name: PropTypes.string.isRequired,
     iso: PropTypes.string.isRequired,
     code: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  click: PropTypes.func.isRequired
 }

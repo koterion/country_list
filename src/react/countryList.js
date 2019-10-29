@@ -1,6 +1,6 @@
 import React from 'react'
-import allCountries from '../country.json'
 import PropTypes from 'prop-types'
+import allCountries from '../country.json'
 import List from './components/list'
 import Input from './components/input'
 import Flag from './components/flag'
@@ -19,12 +19,16 @@ class CountryList extends React.Component {
 
     this.block = React.createRef()
     this.clickOutside = this.clickOutside.bind(this)
+    this.clickCountry = this.clickCountry.bind(this)
+    this.toggleActive = this.toggleActive.bind(this)
+    this.changeInputValue = this.changeInputValue.bind(this)
   }
 
   componentDidMount () {
-    if (this.props.current) {
-      const country = this.props.countries.find(el => {
-        return el.iso === this.props.current
+    const { current, countries } = this.props
+    if (current) {
+      const country = countries.find(el => {
+        return el.iso === current
       })
 
       if (country) {
@@ -34,14 +38,15 @@ class CountryList extends React.Component {
   }
 
   toggleActive () {
-    if (!this.state.active) {
+    const { active } = this.state
+    if (!active) {
       document.addEventListener('mousedown', this.clickOutside)
     } else {
       document.removeEventListener('mousedown', this.clickOutside)
     }
 
     this.setState({
-      active: !this.state.active
+      active: !active
     })
   }
 
@@ -64,14 +69,16 @@ class CountryList extends React.Component {
       code: value.code
     }
 
-    if (this.props.search || this.props.select) {
+    const { search, select, hasPhone, closestForm, inputPhoneName } = this.props
+
+    if (search || select) {
       data.value = value.name
 
-      if (this.props.hasPhone) {
-        if (this.props.closestForm) {
-          const parent = this.block.current.closest(this.props.closestForm)
-          if (this.props.inputPhoneName && parent) {
-            const phone = parent.querySelector(`[name=${this.props.inputPhoneName}]`)
+      if (hasPhone) {
+        if (closestForm) {
+          const parent = document.querySelector(closestForm)
+          if (inputPhoneName && parent) {
+            const phone = parent.querySelector(`[name=${inputPhoneName}]`)
 
             if (phone) {
               phone.value = value.code
@@ -92,78 +99,98 @@ class CountryList extends React.Component {
 
   changeInputValue (value) {
     this.setState({
-      value: value
+      value
     })
   }
 
   render () {
-    let className = 'cntr-in'
+    const {
+      className,
+      flagInInput,
+      flagInSelect,
+      select,
+      children,
+      search,
+      autocomplete,
+      required,
+      inputCountryName,
+      inputPhoneName,
+      countries,
+      countryAll,
+      remove,
+      list
+    } = this.props
+    const { changed, active, value, code, country, iso } = this.state
+    let inputClsName = 'cntr-in'
     let parentClass = 'cntr-bl'
 
-    if (this.props.className) {
-      parentClass += ` ${this.props.className}`
+    if (className) {
+      parentClass += ` ${className}`
     }
 
-    if (this.state.changed) {
-      className += ' cntr-check'
+    if (changed) {
+      inputClsName += ' cntr-check'
       parentClass += ' changed'
     }
 
-    if (this.state.active) {
+    if (active) {
       parentClass += ' active'
     }
 
-    if (this.props.flagInInput) {
-      className += ' cntr-in-sl'
+    if (flagInInput) {
+      inputClsName += ' cntr-in-sl'
     }
 
     return (
       <div className={parentClass} ref={this.block}>
-        {this.props.select
+        {select
           ? (
             <div
-              className={className}
-              onClick={this.toggleActive.bind(this)}
+              className={inputClsName}
+              onClick={this.toggleActive}
+              role="none"
             >
-              {this.state.value ? this.state.value : this.props.children}
+              {value || children}
             </div>
           ) : (
             <Input
-              className={className}
-              search={this.props.search}
-              click={this.toggleActive.bind(this)}
-              value={this.state.value}
-              text={this.props.children}
-              autocomplete={this.props.autocomplete}
-              required={this.props.required}
-              name={this.props.search ? this.props.inputCountryName : this.props.inputPhoneName}
-              change={this.changeInputValue.bind(this)}
-              code={this.state.code}
+              className={inputClsName}
+              search={search}
+              click={this.toggleActive}
+              value={value}
+              text={children}
+              autocomplete={autocomplete}
+              required={required}
+              name={search ? inputCountryName : inputPhoneName}
+              change={this.changeInputValue}
+              code={code}
             />
           )}
         <List
-          flag={this.props.flagInSelect}
-          countries={this.props.countries}
-          click={this.clickCountry.bind(this)}
-          countryAll={this.props.countryAll}
-          remove={this.props.delete}
-          list={this.props.list}
-          value={this.state.value}
+          flag={flagInSelect}
+          countries={countries}
+          click={this.clickCountry}
+          countryAll={countryAll}
+          remove={remove}
+          list={list}
+          value={value}
         />
 
-        {this.props.flagInInput && <Flag click={this.toggleActive.bind(this)} iso={this.state.iso} />}
+        {flagInInput && <Flag click={this.toggleActive} iso={iso} />}
 
-        {this.props.select && <span className='cntr-arrow' />}
+        {select && <span className='cntr-arrow' />}
 
-        {!this.props.search && <input type='hidden' name={this.props.inputCountryName} value={this.state.country} />}
+        {!search && <input type='hidden' name={inputCountryName} value={country} />}
       </div>
     )
   }
 }
 
 CountryList.defaultProps = {
+  className: '',
+  children: '',
   countryAll: [],
-  delete: false,
+  remove: false,
   flagInInput: false,
   flagInSelect: false,
   geo: {
@@ -191,7 +218,7 @@ CountryList.propTypes = {
   className: PropTypes.string,
   children: PropTypes.string,
   countryAll: PropTypes.array,
-  delete: PropTypes.bool,
+  remove: PropTypes.bool,
   flagInInput: PropTypes.bool,
   flagInSelect: PropTypes.bool,
   hasPhone: PropTypes.bool,
@@ -207,20 +234,6 @@ CountryList.propTypes = {
   cookies: PropTypes.bool,
   autocomplete: PropTypes.bool,
   current: PropTypes.string
-}
-
-if (window.Element && !Element.prototype.closest) {
-  Element.prototype.closest = function (s) {
-    const matches = (this.document || this.ownerDocument).querySelectorAll(s)
-    let i
-    let el = this
-    do {
-      i = matches.length
-      while (--i >= 0 && matches.item(i) !== el) {
-      }
-    } while ((i < 0) && (el = el.parentElement))
-    return el
-  }
 }
 
 export default CountryList

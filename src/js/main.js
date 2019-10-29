@@ -5,7 +5,7 @@ import './countryList.js'
 
 const options = {
   // countryAll: ['ua'],
-  // delete: true,
+  // remove: true,
   // flagInInput: true,
   // flagInSelect: true,
   // geo: {
@@ -25,7 +25,7 @@ const options = {
   // disabledPhone: false,
   // cookies: true,
   // current: 'ua',
-  // autocomplete: false
+  // autocomplete: true
 }
 
 ReactDOM.render(

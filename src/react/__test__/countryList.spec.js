@@ -52,7 +52,7 @@ describe('CountryList', () => {
           )
         })
         const input = container.querySelector('[type=tel]')
-        expect(input.autocomplete).toBe('')
+        expect(input.autocomplete).toBe('on')
       })
 
       test('required', () => {
@@ -184,7 +184,7 @@ describe('CountryList', () => {
       test('delete', () => {
         act(() => {
           render(
-            <CountryList delete countryAll={['ua', 'us']} />,
+            <CountryList remove countryAll={['ua', 'us']} />,
             container
           )
         })
@@ -460,7 +460,7 @@ describe('CountryList', () => {
       test('with flag', () => {
         act(() => {
           render(
-            <CountryList flagInInput/>,
+            <CountryList flagInInput />,
             container
           )
         })

@@ -25,13 +25,14 @@ export default function List (props) {
   return (
     <div className='cntr-ls'>
       <ul>
-        {countries.map((el, index) =>
+        {countries.map((el, index) => (
           <Item
             flag={flag}
             country={el}
             key={index}
             click={click}
-          />)}
+          />
+        ))}
       </ul>
     </div>
   )
@@ -40,8 +41,8 @@ export default function List (props) {
 List.propTypes = {
   flag: PropTypes.bool.isRequired,
   countries: PropTypes.array.isRequired,
-  countryAll: PropTypes.array,
-  remove: PropTypes.bool,
-  list: PropTypes.bool,
+  countryAll: PropTypes.array.isRequired,
+  remove: PropTypes.bool.isRequired,
+  list: PropTypes.bool.isRequired,
   click: PropTypes.func.isRequired
 }

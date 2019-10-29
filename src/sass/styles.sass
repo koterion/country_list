@@ -1,0 +1,148 @@
+$country: 'abkhazia' 'ad' 'ae' 'af' 'ag' 'ai' 'al' 'am' 'an' 'ao' 'aq' 'ar' 'as' 'at' 'au' 'aw' 'ax' 'az' 'ba' 'bb' 'bd' 'be' 'bf' 'bg' 'bh' 'bi' 'bj' 'bl' 'bm' 'bn' 'bo' 'br' 'bs' 'bt' 'bv' 'bw' 'by' 'bz' 'ca' 'cc' 'cd' 'cf' 'cg' 'ch' 'ci' 'ck' 'cl' 'cm' 'cn' 'co' 'cr' 'cu' 'cv' 'cx' 'cy' 'cz' 'de' 'dj' 'dk' 'dm' 'do' 'dz' 'ec' 'ee' 'eg' 'eh' 'er' 'es-ce' 'es-ml' 'es' 'et' 'eu' 'fi' 'fj' 'fk' 'fm' 'fo' 'fr' 'ga' 'gb' 'gd' 'ge' 'gf' 'gg' 'gh' 'gi' 'gl' 'gm' 'gn' 'gp' 'gq' 'gr' 'gs' 'gt' 'gu' 'gw' 'gy' 'hk' 'hm' 'hn' 'hr' 'ht' 'hu' 'ic' 'id' 'ie' 'il' 'im' 'in' 'io' 'iq' 'ir' 'is' 'it' 'je' 'jm' 'jo' 'jp' 'ke' 'kg' 'kh' 'ki' 'km' 'kn' 'xk' 'kp' 'kr' 'kw' 'ky' 'kz' 'la' 'lb' 'lc' 'li' 'lk' 'lr' 'ls' 'lt' 'lu' 'lv' 'ly' 'ma' 'mc' 'md' 'me' 'mf' 'mg' 'mh' 'mk' 'ml' 'mm' 'mn' 'mo' 'mp' 'mq' 'mr' 'ms' 'mt' 'mu' 'mv' 'mw' 'mx' 'my' 'mz' 'na' 'nc' 'ne' 'nf' 'ng' 'ni' 'nkr' 'nl' 'no' 'np' 'nr' 'nu' 'nz' 'om' 'pa' 'pe' 'pf' 'pg' 'ph' 'pk' 'pl' 'pm' 'pn' 'pr' 'ps' 'pt' 'pw' 'py' 'qa' 're' 'ro' 'rs' 'ru' 'rw' 'sa' 'sb' 'sc' 'sd' 'se' 'sg' 'sh' 'si' 'sj' 'sk' 'sl' 'sm' 'sn' 'so' 'south-ossetia' 'sr' 'ss' 'st' 'sv' 'sy' 'sz' 'tc' 'td' 'tf' 'tg' 'th' 'tj' 'tk' 'tl' 'tm' 'tn' 'to' 'tr' 'tt' 'tv' 'tw' 'tz' 'ua' 'ug' 'um' 'us' 'uy' 'uz' 'va' 'vc' 've' 'vg' 'vi' 'vn' 'vu' 'wf' 'ws' 'ye' 'yt' 'za' 'zm' 'zw'
+
+.rtl
+  .cntr
+    &-arrow
+      left: 10px
+
+.cntr
+  &-bl
+    position: relative
+
+    &.active
+      .cntr-ls
+        display: block
+
+      .cntr-arrow
+        transform: rotateX(180deg)
+        top: calc(50% - 5px * 2)
+
+      .cntr-sl:after
+        transform: rotateX(180deg)
+        top: calc(50% - 2px * 2)
+
+    .cntr-in-sl
+      padding-left: 50px
+
+  &-ls
+    width: 100%
+    position: absolute
+    top: 100%
+    left: 0
+    background-color: #304163
+    padding: 20px 20px 20px 35px
+    max-height: 100vh
+    z-index: 2
+    display: none
+
+    ul
+      max-height: 280px
+      overflow: auto
+
+      &::-webkit-scrollbar
+        width: 2px
+        background: #2b3a5a
+
+      &::-webkit-scrollbar-thumb
+        background-color: #2bc39c
+
+    li
+      font-size: 14px
+      color: #9fabc3
+      letter-spacing: .65px
+      cursor: pointer
+      margin-bottom: 5px
+      transition: all .3s
+      display: flex
+      align-items: center
+
+      span
+        margin-right: 10px
+
+      @media(max-width: 768px)
+        margin-bottom: 15px
+
+      &:hover
+        color: #46ebc1
+
+  &-sl
+    position: absolute
+    left: 0
+    top: 0
+    height: 100%
+    width: 50px
+    cursor: pointer
+    display: flex
+    align-items: center
+
+    &:after
+      content: ''
+      position: absolute
+      border: 3px solid transparent
+      border-top: 3px solid #465e7c
+      top: calc(50% - 3px / 2)
+      left: 35px
+      width: 0
+      height: 0
+      transition: all .4s
+
+    span
+      left: 10px
+
+  &-in
+    cursor: pointer
+
+  &-middle
+    ul
+      max-height: 220px
+
+  &-top
+    top: 0
+    transform: translateY(-100%)
+
+  &-arrow
+    display: block
+    position: absolute
+    border: 5px solid transparent
+    border-top: 5px solid #465e7c
+    top: calc(50% - 5px / 2)
+    right: 10px
+    width: 0
+    height: 0
+    transition: all .4s
+    cursor: pointer
+
+  &-flag
+    background-image: url('./img/flags.png')
+    display: inline-block
+    vertical-align: baseline
+    position: relative
+    overflow: hidden
+    width: 16px
+    height: 9px
+    font-size: 0
+    line-height: 0
+    margin: 0
+    padding: 0
+    transform: scale(1.1)
+    background-repeat: no-repeat
+
+    &-zh
+      background-position: 0 -432px
+
+    &-el
+      background-position: 0 -819px
+
+    &-en
+      background-position: 0 -711px
+
+    &-ja
+      background-position: 0 -1053px
+
+    &-none
+      background: grey
+
+@if $country != false
+  @for $i from 1 through length($country)
+    .cntr-flag-#{nth($country, $i)}
+      background-position: 0 -9px*($i - 1)

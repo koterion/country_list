@@ -1,32 +1,23 @@
-import React, { useRef, useLayoutEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
 export default function Input (props) {
-  const param = {
-    className: props.className,
-    type: !props.search ? 'tel' : 'text',
-    value: props.value,
-    onClick: props.click,
-    placeholder: props.text,
-    name: props.name
-  }
-
+  const { className, search, value, click, text, name, code, autocomplete, required } = props
   const input = useRef(null)
 
   function handleInput (event) {
-    const type = event.target.type
-    const value = event.target.value
-    const code = props.code
+    const { type } = event.target
+    const { value: targetValue } = event.target
     let valid = true
 
     switch (type) {
       case 'text':
-        if (value.match(/[A-zА-яЁё\s]+$/) === null || value.replace(/\s/g, '') === '') {
+        if (targetValue.match(/[A-zА-яЁё\s]+$/) === null || targetValue.replace(/\s/g, '') === '') {
           valid = false
         }
         break
       case 'tel':
-        if ((value.match(/[0-9]$/) === null || value.replace(/\s/g, '') === '') || value.match(new RegExp(code)) === null) {
+        if ((targetValue.match(/[0-9]$/) === null || targetValue.replace(/\s/g, '') === '') || targetValue.match(new RegExp(code)) === null) {
           valid = false
         }
         break
@@ -34,42 +25,48 @@ export default function Input (props) {
         break
     }
 
-    if (valid || value.length === 0) {
+    if (valid || targetValue.length === 0) {
       if (type === 'tel') {
-        props.change(value.length !== 0 ? value : code)
+        props.change(targetValue.length !== 0 ? targetValue : code)
       } else {
-        props.change(value)
+        props.change(targetValue)
       }
     }
   }
 
-  useLayoutEffect(() => {
-    if (param.type === 'tel') {
+  useEffect(() => {
+    if (!search) {
       input.current.focus()
     }
-  }, [props.value])
-
-  if (!props.autocomplete) {
-    param.autoComplete = 'off'
-  }
-
-  if (props.required) {
-    param.required = true
-  }
+  }, [value])
 
   return (
-    <input {...param} onChange={handleInput} ref={input} />
+    <input
+      className={className}
+      value={value}
+      name={name}
+      type={!search ? 'tel' : 'text'}
+      placeholder={text}
+      required={required}
+      autoComplete={!autocomplete ? 'off' : 'on'}
+      onClick={click}
+      onChange={handleInput}
+      ref={input}
+    />
   )
 }
 
 Input.propTypes = {
   className: PropTypes.string.isRequired,
-  search: PropTypes.bool,
+  search: PropTypes.bool.isRequired,
   click: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
-  ]),
-  required: PropTypes.bool,
-  text: PropTypes.string
+  ]).isRequired,
+  required: PropTypes.bool.isRequired,
+  autocomplete: PropTypes.bool.isRequired,
+  text: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  code: PropTypes.string.isRequired
 }

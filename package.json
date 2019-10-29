@@ -36,8 +36,8 @@
   "files": [
     "dist"
   ],
-  "main": "dist/countryList.js",
-  "style": "dist/css/countryList.css",
+  "main": "dist/index.js",
+  "style": "dist/src/styles.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/koterion/country_list"
