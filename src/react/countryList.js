@@ -29,15 +29,15 @@ class CountryList extends React.Component {
     if (current) {
       this.findCountry(current)
     } else if (enableGeoCheck) {
-      this.checkGeo(geo.url)
-        .then(data => this.findCountry(geo.getIso(data)))
+      this.checkGeo(geo)
+        .then(data => this.findCountry(data))
     }
   }
 
-  async checkGeo (url) {
-    const response = await fetch(url, { method: 'GET' })
+  async checkGeo (settings) {
+    const response = await fetch(settings.url, { method: 'GET' })
     const json = await response.json()
-    return json
+    return settings.getIso(json)
   }
 
   findCountry (iso) {
