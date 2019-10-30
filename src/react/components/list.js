@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import Item from './item'
 
 export default function List (props) {
-  let { countries, flag, click, remove, list, countryAll } = props
+  const { flag, click, remove, list, countryAll, value, search } = props
+  let { countries } = props
 
   if (remove) {
     countryAll.forEach(el => {
@@ -20,6 +21,12 @@ export default function List (props) {
     })
 
     countries = arr
+  }
+
+  if (search) {
+    countries = countries.filter(country => {
+      return country.name.toLowerCase().search(new RegExp(value.toLowerCase())) === 0
+    })
   }
 
   return (

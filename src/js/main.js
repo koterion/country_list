@@ -25,7 +25,8 @@ const options = {
   // disabledPhone: false,
   // cookies: true,
   // current: 'ua',
-  // autocomplete: true
+  // autocomplete: true,
+  enableGeoCheck: true
 }
 
 ReactDOM.render(

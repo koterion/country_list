@@ -25,15 +25,29 @@ class CountryList extends React.Component {
   }
 
   componentDidMount () {
-    const { current, countries } = this.props
+    const { current, enableGeoCheck, geo } = this.props
     if (current) {
-      const country = countries.find(el => {
-        return el.iso === current
-      })
+      this.findCountry(current)
+    } else if (enableGeoCheck) {
+      this.checkGeo(geo.url)
+        .then(data => this.findCountry(geo.getIso(data)))
+    }
+  }
 
-      if (country) {
-        this.changeCountry(country)
-      }
+  async checkGeo (url) {
+    const response = await fetch(url, { method: 'GET' })
+    const json = await response.json()
+    return json
+  }
+
+  findCountry (iso) {
+    const { countries } = this.props
+    const country = countries.find(el => {
+      return el.iso === iso.toLowerCase()
+    })
+
+    if (country) {
+      this.changeCountry(country)
     }
   }
 
@@ -75,14 +89,11 @@ class CountryList extends React.Component {
       data.value = value.name
 
       if (hasPhone) {
-        if (closestForm) {
-          const parent = document.querySelector(closestForm)
-          if (inputPhoneName && parent) {
-            const phone = parent.querySelector(`[name=${inputPhoneName}]`)
-
-            if (phone) {
-              phone.value = value.code
-            }
+        const parent = document.querySelector(closestForm)
+        if (parent) {
+          const phone = parent.querySelector(`[name=${inputPhoneName}]`)
+          if (inputPhoneName && phone) {
+            phone.value = value.code
           } else {
             console.warn('Please add correct inputPhoneName.')
           }
@@ -164,6 +175,7 @@ class CountryList extends React.Component {
               name={search ? inputCountryName : inputPhoneName}
               change={this.changeInputValue}
               code={code}
+              active={active}
             />
           )}
         <List
@@ -174,6 +186,7 @@ class CountryList extends React.Component {
           remove={remove}
           list={list}
           value={value}
+          search={search}
         />
 
         {flagInInput && <Flag click={this.toggleActive} iso={iso} />}
@@ -193,13 +206,14 @@ CountryList.defaultProps = {
   remove: false,
   flagInInput: false,
   flagInSelect: false,
+  enableGeoCheck: false,
   geo: {
     url: 'https://api.sypexgeo.net/',
     getIso: (response) => {
       return response.country.iso
     }
   },
-  hasPhone: true,
+  hasPhone: false,
   inputCountryName: 'country',
   inputPhoneName: 'phone',
   closestForm: 'form',
@@ -208,8 +222,6 @@ CountryList.defaultProps = {
   select: false,
   required: false,
   countries: allCountries,
-  disabledPhone: false,
-  cookies: true,
   autocomplete: false,
   current: ''
 }
@@ -230,10 +242,13 @@ CountryList.propTypes = {
   select: PropTypes.bool,
   required: PropTypes.bool,
   countries: PropTypes.array,
-  disabledPhone: PropTypes.bool,
-  cookies: PropTypes.bool,
   autocomplete: PropTypes.bool,
-  current: PropTypes.string
+  current: PropTypes.string,
+  enableGeoCheck: PropTypes.bool,
+  geo: PropTypes.shape({
+    url: PropTypes.string,
+    getIso: PropTypes.func
+  })
 }
 
 export default CountryList

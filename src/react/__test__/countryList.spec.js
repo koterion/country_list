@@ -111,7 +111,7 @@ describe('CountryList', () => {
       test('search + current without phone', () => {
         act(() => {
           render(
-            <CountryList search current='ua' hasPhone={false} />,
+            <CountryList search current='ua' />,
             container
           )
         })
@@ -124,7 +124,7 @@ describe('CountryList', () => {
         act(() => {
           render(
             <form>
-              <CountryList search current='ua' />
+              <CountryList search hasPhone current='ua' />
               <input type='tel' name='phone' />
             </form>,
             container
@@ -289,7 +289,7 @@ describe('CountryList', () => {
         act(() => {
           render(
             <form>
-              <CountryList select current='ua' />
+              <CountryList select hasPhone current='ua' />
               <input type='tel' name='phone' />
             </form>,
             container
@@ -312,7 +312,7 @@ describe('CountryList', () => {
         act(() => {
           render(
             <form>
-              <CountryList select hasPhone={false} current='ua' />
+              <CountryList select current='ua' />
               <input type='tel' name='phone' />
             </form>,
             container
@@ -413,7 +413,7 @@ describe('CountryList', () => {
         act(() => {
           render(
             <form>
-              <CountryList select />
+              <CountryList select hasPhone />
               <input type='tel' name='phone' />
             </form>,
             container
@@ -442,7 +442,7 @@ describe('CountryList', () => {
       test('select without phone', () => {
         act(() => {
           render(
-            <CountryList select hasPhone={false} />,
+            <CountryList select />,
             container
           )
         })

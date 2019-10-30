@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
 export default function Input (props) {
-  const { className, search, value, click, text, name, code, autocomplete, required } = props
+  const { className, search, value, click, text, name, code, autocomplete, required, active } = props
   const input = useRef(null)
 
   function handleInput (event) {
@@ -35,10 +35,12 @@ export default function Input (props) {
   }
 
   useEffect(() => {
-    if (!search) {
-      input.current.focus()
+    return () => {
+      if (!search) {
+        input.current.focus()
+      }
     }
-  }, [value])
+  }, [active])
 
   return (
     <input
