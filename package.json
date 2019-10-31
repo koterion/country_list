@@ -1,7 +1,28 @@
 {
   "name": "@koterion/country_list",
-  "version": "2.2.9",
-  "description": "Plugin for create list of country",
+  "version": "3.0.0",
+  "description": "A react component for entering mobile numbers",
+  "keywords": [
+    "react-component",
+    "country_list",
+    "react",
+    "country",
+    "countries",
+    "list of countries",
+    "selector",
+    "input",
+    "phone country code",
+    "telephone",
+    "mobile",
+    "custom phone",
+    "custom select",
+    "flag",
+    "international",
+    "progress",
+    "component",
+    "UI component",
+    "javascript"
+  ],
   "scripts": {
     "dev": "npm run development",
     "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -9,13 +30,22 @@
     "watch-poll": "npm run watch -- --watch-poll",
     "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod": "npm run production",
-    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "unit": "jest"
   },
-  "standard": {
-    "envs": {
-      "browser": true,
-      "jquery": true
-    }
+  "jest": {
+    "verbose": false,
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "transform": {
+      "^.+\\.(js|jsx|tsk)?$": "<rootDir>/node_modules/babel-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)",
+      "<rootDir>/node_modules/"
+    ]
   },
   "browserslist": [
     "> 5%",
@@ -27,26 +57,39 @@
   "files": [
     "dist"
   ],
-  "main": "dist/countryList.js",
-  "style": "dist/css/countryList.css",
+  "main": "dist/index.js",
+  "style": "dist/src/styles.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/koterion/country_list"
   },
-  "author": "koterion",
+  "author": "koterion (Ihor Mnushko)",
   "license": "MIT",
   "homepage": "https://koterion.github.io/countryList/",
   "devDependencies": {
-    "autoprefixer": "^9.6.5",
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "autoprefixer": "^9.7.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.5.0",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
     "cross-env": "^6.0.3",
+    "express": "^4.17.1",
+    "jest": "^24.9.0",
     "laravel-mix": "^5.0.0",
-    "sass": "^1.23.0",
-    "sass-loader": "^8.0.0",
-    "standard": "^14.3.1",
-    "vue-template-compiler": "^2.6.10",
+    "prop-types": "^15.7.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
     "sanitize.css": "^11.0.0",
-    "express": "^4.17.1"
+    "sass": "^1.23.1",
+    "sass-loader": "^7.3.1",
+    "standard": "^14.3.1",
+    "vue-template-compiler": "^2.6.10"
   }
 }
