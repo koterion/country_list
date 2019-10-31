@@ -100,6 +100,7 @@ class CountryList extends React.Component {
           const phone = parent.querySelector(`[name=${inputPhoneName}]`)
           if (inputPhoneName && phone) {
             phone.value = value.code
+            phone.focus()
           } else {
             console.warn('Please add correct inputPhoneName.')
           }

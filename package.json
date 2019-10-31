@@ -1,6 +1,6 @@
 {
   "name": "@koterion/country_list",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A react component for entering mobile numbers",
   "keywords": [
     "react-component",

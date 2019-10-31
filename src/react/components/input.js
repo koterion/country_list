@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useLayoutEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
 export default function Input (props) {
@@ -34,13 +34,13 @@ export default function Input (props) {
     }
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     return () => {
       if (!search) {
         input.current.focus()
       }
     }
-  }, [active])
+  }, [active, value])
 
   return (
     <input
