@@ -5,7 +5,7 @@ import CountryList from '../react/countryList'
 const options = {
   // countryAll: ['ua'],
   // remove: true,
-  flagInInput: true,
+  // flagInInput: true,
   // flagInSelect: true,
   // geo: {
   //   url: 'https://api.sypexgeo.net/',

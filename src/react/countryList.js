@@ -30,8 +30,9 @@ class CountryList extends React.Component {
     if (current) {
       this.findCountry(current)
     } else if (enableGeoCheck) {
-      this.checkGeo(geo)
-        .then(data => this.findCountry(data))
+      fetch(geo.url, { method: 'GET' })
+        .then(response => response.json())
+        .then(data => this.findCountry(geo.getIso(data)))
     }
 
     const block = this.block.current
@@ -43,12 +44,6 @@ class CountryList extends React.Component {
           top: true
         })
       }
-  }
-
-  async checkGeo (settings) {
-    const response = await fetch(settings.url, { method: 'GET' })
-    const json = await response.json()
-    return settings.getIso(json)
   }
 
   findCountry (iso) {
