@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
 export default function Input (props) {
-  const { className, search, value, click, text, name, code, autocomplete, required, active } = props
+  const { className, search, value, click, text, name, code, autocomplete, required, active, autocompleteValue } = props
   const input = useRef(null)
 
   function handleInput (event) {
@@ -50,7 +50,7 @@ export default function Input (props) {
       type={!search ? 'tel' : 'text'}
       placeholder={text}
       required={required}
-      autoComplete={!autocomplete ? 'off' : 'on'}
+      autoComplete={!autocomplete ? autocompleteValue : 'on'}
       onClick={click}
       onChange={handleInput}
       ref={input}
@@ -70,5 +70,6 @@ Input.propTypes = {
   autocomplete: PropTypes.bool.isRequired,
   text: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  autocompleteValue: PropTypes.string.isRequired,
   code: PropTypes.string.isRequired
 }

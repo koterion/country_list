@@ -7,6 +7,8 @@ export default function Flag (props) {
 
   if (iso) {
     flag += ` cntr-flag-${props.iso}`
+  } else {
+    flag += ' cntr-flag-none'
   }
 
   return (
@@ -17,7 +19,7 @@ export default function Flag (props) {
 }
 
 Flag.defaultProps = {
-  iso: 'none'
+  iso: ''
 }
 
 Flag.propTypes = {

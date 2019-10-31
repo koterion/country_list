@@ -14,7 +14,8 @@ class CountryList extends React.Component {
       value: '',
       country: '',
       code: '',
-      ico: ''
+      ico: '',
+      top: false
     }
 
     this.block = React.createRef()
@@ -32,6 +33,16 @@ class CountryList extends React.Component {
       this.checkGeo(geo)
         .then(data => this.findCountry(data))
     }
+
+    const block = this.block.current
+    const ElHeight = block.offsetHeight + 280
+    const ElTop = block.getBoundingClientRect().top + pageYOffset
+
+    if (document.body.offsetHeight - ElTop < ElHeight) {
+        this.setState({
+          top: true
+        })
+      }
   }
 
   async checkGeo (settings) {
@@ -129,9 +140,10 @@ class CountryList extends React.Component {
       countries,
       countryAll,
       remove,
-      list
+      list,
+      autocompleteValue
     } = this.props
-    const { changed, active, value, code, country, iso } = this.state
+    const { changed, active, value, code, country, iso, top } = this.state
     let inputClsName = 'cntr-in'
     let parentClass = 'cntr-bl'
 
@@ -176,9 +188,11 @@ class CountryList extends React.Component {
               change={this.changeInputValue}
               code={code}
               active={active}
+              autocompleteValue={autocompleteValue}
             />
           )}
         <List
+          top={top}
           flag={flagInSelect}
           countries={countries}
           click={this.clickCountry}
@@ -209,9 +223,7 @@ CountryList.defaultProps = {
   enableGeoCheck: false,
   geo: {
     url: 'https://api.sypexgeo.net/',
-    getIso: (response) => {
-      return response.country.iso
-    }
+    getIso: response => response.country.iso
   },
   hasPhone: false,
   inputCountryName: 'country',
@@ -223,6 +235,7 @@ CountryList.defaultProps = {
   required: false,
   countries: allCountries,
   autocomplete: false,
+  autocompleteValue: 'off',
   current: ''
 }
 
@@ -244,6 +257,7 @@ CountryList.propTypes = {
   countries: PropTypes.array,
   autocomplete: PropTypes.bool,
   current: PropTypes.string,
+  autocompleteValue: PropTypes.string,
   enableGeoCheck: PropTypes.bool,
   geo: PropTypes.shape({
     url: PropTypes.string,

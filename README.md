@@ -1,67 +1,53 @@
-# Country list 
-Plugin for create list of country. [Examples](https://koterion.github.io/countryList/)
+# React Country List
+`country_list` is a React Component for entering mobile numbers with code of choosing country.
 
-## install
+## Live demo
+
+All examples on the [demo page](https://koterion.github.io/countryList/)
+
+## Installing
 
 ```shell
-npm install @koterion/country_list
+npm install --save @koterion/country_list
 ```
 
-## use
+## Examples
 
-Download the [latest release](https://github.com/koterion/country_list/releases/latest), or better yet install it with [npm](https://www.npmjs.com/package/@koterion/country_list)
+### Flags image
 
-### CSS
-
-Include css
-```html
-<link rel="stylesheet" href="path/to/countryList.css">
-```
-or (if use Postcss)
 ```css
-@import url('~@koterion/country_list');
+.cntr-flag {
+  background-image: url('@koterion/country_list/dist/img/flags.png')
+}
 ```
 
-### HTML
+### Basic usage
 
-```html
-<div class="YourUniqueClass" data-yourData="dataInfo">Default</div>
-```
-Create unique class name
+```jsx
+import CountryList from '@koterion/country_list';
+import '@koterion/country_list/dist/styles.css';
 
-### JS
-
-Include JS
-
-```html
-<script src="path/to/countryList.js"></script>
-```
-
-or
-
-```js
-import "@koterion/country_list"
+const phone = (<CountryList />);
 ```
 
 ### options
 
 option | type | default | desc |
 :--- | :---: | :---: | :--- |
-[countryAll](#countryall) | array | `[]` | List of country you wanna use |
-[delete](#delete) | boolean | `false` | If `true` delete country using `countryAll` (don't use with option list)
+countryAll | array | `[]` | Array of countries iso |
+remove | boolean | `false` | If `true` remove countries using `countryAll`
+list | boolean | `false` | If `true` create list of country using `countryAll`
 flagInInput | boolean | `false` | If `true` add flags to current selector
 flagInSelect | boolean | `false` | If `true`  add flags to dropdown
 [geo](#geo) | object | | Use for checked country by ip |
 closestForm | string | `form` | Closest form or selector |
-hasPhone | boolean | `true` | Put current phone code to phone input |
+hasPhone | boolean | `false` | Using your custom phone input from `inputPhoneName` |
 inputCountryName | string | `country` | Name for `input` with country name (auto create `type=hidden`)
-inputPhoneName | string | `phone` | Name for `input` with phone number (auto create)
-list | boolean | `false` | If `true` create list of country using `countryAll` (don't use with option delete)
+inputPhoneName | string | `phone` | Name for `input` with phone number
 search | boolean | `false` | If `true` create input with name from `inputCountryName`, live search in country list
 select | boolean | `false` | If `true` create list like select
 required | boolean | `false` | If `true` add required for input
 [countries](#countries) | json |  | Countries in json format
-disabledPhone | boolean | `false` | If `true` add disabled for phone when country doesn't choose
                  
 ### countryAll
 
@@ -69,17 +55,9 @@ Use with `delete` or `list`
 
 Example:
 
-```js
-  countryList($('.YourUniqueClass'), {countryAll:['ar'], delete: true})
-  countryList($('.YourUniqueClass'), {countryAll:['ar'], list: true})
-```
-
-### delete
-
-Don't use with `list`
-
-```js
-  countryList($('.YourUniqueClass'), {countryAll:['ar'], delete: true})
+```jsx
+<CountryList delete countryAll={['ua', 'us']} />
+<CountryList list countryAll={['ua', 'us']} />
 ```
 
 ### geo
@@ -87,29 +65,30 @@ For define country by ip we use service [Sypexgeo](https://api.sypexgeo.net/)
 
 You can rewrite method, it option `geo` by default it's object with this parameters: 
 ```js
+{
   url: 'https://api.sypexgeo.net/',
-  getIso: function (response) {
-    return response.country.iso
-  }
+  getIso: response => response.country.iso
+}
 ```
 `url` - api for service, `getIso` - return country iso
 
-Also you can use data attribute `data-current` with current country in ISO format. Example:
-```html
-<div class="select" data-current="us"></div>
+Also you can use `current` with current country in ISO format. Example:
+```jsx
+<CountryList current='ua' />
 ```
 
 ### countries
+Format for custom countries
 
 ```json
 {
-    "country":"Afghanistan",
-    "iso_code":"af",
-    "country_code":"93"
+  "name": "Afghanistan",
+  "iso": "af",
+  "code": "93"
 },
 {
-    "country":"Albania",
-    "iso_code":"al",
-    "country_code":"355"
-}
+  "name": "Albania",
+  "iso": "al",
+  "code": "355"
+},
 ```

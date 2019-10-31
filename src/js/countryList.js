@@ -1,4 +1,3 @@
-'use strict'
 
 import allCountries from '../country.json'
 
@@ -23,12 +22,12 @@ function countryList (selector, options) {
 
 const defaults = {
   countryAll: [],
-  delete: false,
+  remove: false,
   flagInInput: false,
   flagInSelect: false,
   geo: {
     url: 'https://api.sypexgeo.net/',
-    getIso: function (response) {
+    getIso (response) {
       return response.country.iso
     }
   },
@@ -42,7 +41,7 @@ const defaults = {
   required: false,
   countries: allCountries,
   disabledPhone: false,
-  cookies: true
+  cookies: false
 }
 
 class CountryList {
@@ -96,7 +95,7 @@ class CountryList {
     if (this.selector.length > 0) {
       this.selector = this.selector[0]
     }
-    this.selector.classList.add(this.className + '-in')
+    this.selector.classList.add(`${this.className}-in`)
 
     this.currentCountry = this.selector.dataset.current
     this._wrapSelector()
@@ -108,7 +107,7 @@ class CountryList {
 
   _wrapSelector () {
     this.wrapBlock = this._createEl('div', {
-      class: this.className + '-bl'
+      class: `${this.className}-bl`
     })
     this.selector.parentNode.insertBefore(this.wrapBlock, this.selector)
     this.wrapBlock.appendChild(this.selector)
@@ -144,7 +143,7 @@ class CountryList {
 
   _addCountryList () {
     const block = this._createEl('div', {
-      class: this.className + '-ls'
+      class: `${this.className}-ls`
     })
     this.wrapBlock.appendChild(block)
     this.countryList = this._createEl('ul')
@@ -162,7 +161,7 @@ class CountryList {
 
     if (this.options.flagInSelect) {
       const span = this._createEl('span', {
-        class: this.className + '-flag ' + this.className + '-flag-' + iso
+        class: `${this.className}-flag ${this.className}-flag-${iso}`
       })
       li.appendChild(span)
       li.appendChild(document.createTextNode(name))
@@ -182,7 +181,7 @@ class CountryList {
           }
         })
       })
-    } else if (this.options.delete) {
+    } else if (this.options.remove) {
       forEachArr(this.options.countries, (value) => {
         if (!this._checkForDelete(value.iso)) {
           this._addCountryListItem(value)
@@ -213,7 +212,7 @@ class CountryList {
     const _this = this
     on(document.body, 'keypress', function (event) {
       if (_this.wrapBlock.classList.contains('active') && !(event.key.search(/^[^\d+=()[\]{}\\/^$|?*!@#%:;&,_.'"\s]+$/) === -1) && event.which !== 13) {
-        const scrollEl = _this.wrapBlock.querySelector('li[data-search^="' + String.fromCharCode(event.which).toLowerCase() + '"]')
+        const scrollEl = _this.wrapBlock.querySelector(`li[data-search^="${String.fromCharCode(event.which).toLowerCase()}"]`)
 
         if (scrollEl && scrollEl.length !== 0) {
           _this._scrollTo(_this.countryList, scrollEl.offsetTop - 20, 800)
@@ -223,7 +222,7 @@ class CountryList {
   }
 
   _checkForNumber () {
-    const wrapBlock = this.wrapBlock
+    const { wrapBlock } = this
     on(this.selector, 'keypress', function (event) {
       if (!(event.key.search(/[^0-9]/ig) === -1)) {
         event.preventDefault()
@@ -235,11 +234,11 @@ class CountryList {
 
   _addFlagToInput () {
     const block = this._createEl('div', {
-      class: this.className + '-sl'
+      class: `${this.className}-sl`
     })
     this.wrapBlock.appendChild(block)
-    this.selector.classList.add(this.className + '-in-sl')
-    this.countryFlagsBlock = this.wrapBlock.querySelector('.' + this.className + '-sl')
+    this.selector.classList.add(`${this.className}-in-sl`)
+    this.countryFlagsBlock = this.wrapBlock.querySelector(`.${this.className}-sl`)
     this._showCountryList(this.countryFlagsBlock)
   }
 
@@ -250,7 +249,7 @@ class CountryList {
   }
 
   _closeCountryList () {
-    const wrapBlock = this.wrapBlock
+    const { wrapBlock } = this
     on(document.body, 'click', function (event) {
       if (wrapBlock.classList.contains('active') && event.target !== wrapBlock && event.target.parentElement !== wrapBlock && event.target.parentElement.parentElement !== wrapBlock) {
         wrapBlock.classList.remove('active')
@@ -260,7 +259,7 @@ class CountryList {
 
   _findPhoneInput () {
     if (this.selector.closest(this.options.closestForm) && this.selector.closest(this.options.closestForm).length) {
-      this.phoneInput = this.selector.closest(this.options.closestForm).querySelector('input[name="' + this.options.inputPhoneName + '"]')
+      this.phoneInput = this.selector.closest(this.options.closestForm).querySelector(`input[name="${this.options.inputPhoneName}"]`)
       if (this.options.disabledPhone) {
         this.phoneInput.setAttribute('disabled', 'true')
       }
@@ -271,7 +270,7 @@ class CountryList {
 
   _addArrow () {
     const span = this._createEl('span', {
-      class: this.className + '-arrow'
+      class: `${this.className}-arrow`
     })
     this.wrapBlock.appendChild(span)
     this._showCountryList(span)
@@ -303,7 +302,7 @@ class CountryList {
         })
 
         if (event.which === 13) {
-          const li = _this.countryList.querySelector('li[data-search^="' + this.value.toLowerCase() + '"]')
+          const li = _this.countryList.querySelector(`li[data-search^="${this.value.toLowerCase()}"]`)
           if (li) {
             li.click()
           }
@@ -339,7 +338,7 @@ class CountryList {
           }
 
           if (_this.options.flagInInput) {
-            _this.countryFlagsBlock.innerHTML = '<span class="cntr-flag cntr-flag-' + this.dataset.code + '"></span>'
+            _this.countryFlagsBlock.innerHTML = `<span class="cntr-flag cntr-flag-${this.dataset.code}"></span>`
           }
         })
       })
@@ -349,25 +348,25 @@ class CountryList {
           _this.wrapBlock.classList.add('changed')
           _this.wrapBlock.classList.remove('active')
           _this.countryInput.value = this.dataset.name
-          _this.countryFlagsBlock.innerHTML = '<span class="cntr-flag cntr-flag-' + this.dataset.code + '"></span>'
-          _this.selector.classList.add(_this.className + '_check')
+          _this.countryFlagsBlock.innerHTML = `<span class="cntr-flag cntr-flag-${this.dataset.code}"></span>`
+          _this.selector.classList.add(`${_this.className}_check`)
           _this.selector.value = this.dataset.phone
           _this.selector.focus()
         })
       })
 
       on(this.selector, 'keyup', function () {
-        if (this.value.search(/[0-9]/ig) === 0 && !this.classList.contains(_this.className + '_check')) {
-          const countryFound = _this.countryList.querySelector('li[data-phone|="' + this.value + '"]')
+        if (this.value.search(/[0-9]/ig) === 0 && !this.classList.contains(`${_this.className}_check`)) {
+          const countryFound = _this.countryList.querySelector(`li[data-phone|="${this.value}"]`)
 
           if (countryFound && countryFound.dataset.code !== undefined) {
-            _this.countryFlagsBlock.innerHTML = '<span class="cntr-flag cntr-flag-' + countryFound.dataset.code + '"></span>'
+            _this.countryFlagsBlock.innerHTML = `<span class="cntr-flag cntr-flag-${countryFound.dataset.code}"></span>`
             _this.countryInput.value = countryFound.dataset.name
           }
         }
 
         if (this.value.length === 0) {
-          this.classList.remove(_this.className + '_check')
+          this.classList.remove(`${_this.className}_check`)
         }
       })
     } else {
@@ -391,9 +390,9 @@ class CountryList {
 
       const hasCurrent = this.options.countryAll.find(el => { return el === this.currentCountry }) !== undefined
 
-      if ((!hasCurrent && !this.options.delete) || (this.options.list && hasCurrent)) {
+      if ((!hasCurrent && !this.options.remove) || (this.options.list && hasCurrent)) {
         this.wrapBlock.classList.add('changed')
-        this.selector.classList.add(this.className + '_check')
+        this.selector.classList.add(`${this.className}_check`)
         this._checkGeo()
       }
     }
@@ -418,7 +417,7 @@ class CountryList {
             changeIso(iso.toLowerCase())
           } else if (Http.status !== 200) {
             if (this.options.flagInInput) {
-              this.countryFlagsBlock.innerHTML = '<span class="' + this.className + '-flag ' + this.className + '-flag-us"></span>'
+              this.countryFlagsBlock.innerHTML = `<span class="${this.className}-flag ${this.className}-flag-us"></span>`
               this.countryInput.value = 'United States'
             }
           }
@@ -431,12 +430,12 @@ class CountryList {
 
   _checkGeo () {
     if (this.options.flagInInput) {
-      this.countryFlagsBlock.innerHTML = '<span class="' + this.className + '-flag ' + this.className + '-flag-' + this.currentCountry + '"></span>'
+      this.countryFlagsBlock.innerHTML = `<span class="${this.className}-flag ${this.className}-flag-${this.currentCountry}"></span>`
       this._changeValue(this.selector, 'phone')
       this._changeValue(this.countryInput, 'name')
 
       if (this.options.select) {
-        const li = this.countryList.querySelector('li[data-code="' + this.currentCountry + '"]')
+        const li = this.countryList.querySelector(`li[data-code="${this.currentCountry}"]`)
         if (li) {
           this.selector.innerText = li.dataset.name
         }
@@ -450,7 +449,7 @@ class CountryList {
         this._changeValue(this.phoneInput, 'phone')
       }
     } else if (this.options.select) {
-      const li = this.countryList.querySelector('li[data-code="' + this.currentCountry + '"]')
+      const li = this.countryList.querySelector(`li[data-code="${this.currentCountry}"]`)
       if (li) {
         this.selector.innerText = li.dataset.name
       }
@@ -465,7 +464,7 @@ class CountryList {
   }
 
   _changeValue (element, attribute) {
-    const li = this.countryList.querySelector('li[data-code="' + this.currentCountry + '"]')
+    const li = this.countryList.querySelector(`li[data-code="${this.currentCountry}"]`)
     if (li) {
       element.value = li.dataset[attribute]
     }
@@ -485,7 +484,7 @@ class CountryList {
     const ElTop = this.selector.getBoundingClientRect().top + pageYOffset
 
     if (document.body.offsetHeight - ElTop < ElHeight) {
-      this.countryList.parentElement.classList.add(this.className + '-top')
+      this.countryList.parentElement.classList.add(`${this.className}-top`)
     }
   }
 
@@ -510,7 +509,7 @@ function checkSelector (selector) {
     throw Error('CountryList: Didn\'t find selector')
   } else if (selector.length > 1) {
     throw Error(`CountryList: Please use one one selector, not more, in one connection
-        You use ` + selector.length + ' selectors')
+        You use ${selector.length} selectors`)
   }
 }
 
@@ -532,7 +531,7 @@ function on (elem, event, func) {
   if (elem.addEventListener) {
     elem.addEventListener(event, func)
   } else {
-    elem.attachEvent('on' + event, func)
+    elem.attachEvent(`on${event}`, func)
   }
 }
 
@@ -562,14 +561,14 @@ if (window.Element && !Element.prototype.closest) {
 }
 
 const cookies = {
-  set: function (name, value, exdays) {
+  set (name, value, exdays) {
     const d = new Date()
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
-    const expires = 'expires=' + d.toUTCString()
-    document.cookie = name + '=' + value + ';' + expires + ';path=/'
+    const expires = `expires=${d.toUTCString()}`
+    document.cookie = `${name}=${value};${expires};path=/`
   },
-  get: function (name) {
-    const matches = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[]\\\/+^])/g, '\\$1') + '=([^;]*)'
+  get (name) {
+    const matches = document.cookie.match(new RegExp(`(?:^|; )${name.replace(/([.$?*|{}()[]\\\/+^])/g, '\\$1')}=([^;]*)`
     ))
     return matches ? decodeURIComponent(matches[1]) : undefined
   }

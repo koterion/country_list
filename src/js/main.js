@@ -1,12 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import CountryList from '../react/countryList'
-import './countryList.js'
 
 const options = {
   // countryAll: ['ua'],
   // remove: true,
-  // flagInInput: true,
+  flagInInput: true,
   // flagInSelect: true,
   // geo: {
   //   url: 'https://api.sypexgeo.net/',
@@ -26,23 +25,20 @@ const options = {
   // cookies: true,
   // current: 'ua',
   // autocomplete: true,
-  enableGeoCheck: true
+  // enableGeoCheck: true
 }
 
 ReactDOM.render(
-  <CountryList className='form__input' {...options}>Phone Number</CountryList>,
+  <div className='main'>
+    <h1>Country List</h1>
+    <div className="list">
+      <div className="block">
+        <CountryList className='input' {...options}>
+          {options.search || options.select ? 'Country' : 'Phone Number'}
+        </CountryList>
+        {options.hasPhone && <input name="phone" type="text" className="input" placeholder="Phone Number" />}
+      </div>
+    </div>
+  </div>,
   document.getElementById('app')
 )
-
-countryList(document.querySelector('.phone'), { inputCountryName: 'country1', inputPhoneName: 'phone1' })
-countryList(document.querySelector('.flags'), { flagInSelect: true })
-countryList(document.querySelector('.flag'), { flagInInput: true })
-countryList(document.querySelector('.select'), { select: true })
-countryList(document.querySelector('.search'), { search: true, inputCountryName: 'country4', hasPhone: false })
-countryList(document.querySelector('.choose'), { select: true, list: true, countryAll: ['ar', 'fr'], hasPhone: false })
-countryList(document.querySelector('.delete'), {
-  select: true,
-  delete: true,
-  countryAll: ['ar', 'ua'],
-  hasPhone: false
-})

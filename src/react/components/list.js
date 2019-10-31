@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Item from './item'
 
 export default function List (props) {
-  const { flag, click, remove, list, countryAll, value, search } = props
+  const { flag, click, remove, list, countryAll, value, search, top } = props
   let { countries } = props
 
   if (remove) {
@@ -29,8 +29,14 @@ export default function List (props) {
     })
   }
 
+  let className = 'cntr-ls'
+
+  if (top) {
+    className += ' cntr-top'
+  }
+
   return (
-    <div className='cntr-ls'>
+    <div className={className}>
       <ul>
         {countries.map((el, index) => (
           <Item

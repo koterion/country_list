@@ -4,19 +4,19 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 mix.js('src/js/countryList.js', 'dist/js/index.js')
   .react('src/js/main.js', 'dist/js')
-  .react('src/react/countryList.js', 'dist/index.js')
+  .react('src/react/index.js', 'dist')
   .sass('src/sass/styles.sass', 'dist')
   .sass('src/sass/main.sass', 'dist/css')
 
   .webpackConfig({
-  plugins: [
-    new BrowserSyncPlugin({
-      host: 'localhost',
-      port: 3000,
-      server: { baseDir: ['./'] }
-    })
-  ]
-})
+    plugins: [
+      new BrowserSyncPlugin({
+        host: 'localhost',
+        port: 3000,
+        server: { baseDir: ['./'] }
+      })
+    ]
+  })
 
   .options({
     processCssUrls: false,
@@ -26,9 +26,7 @@ mix.js('src/js/countryList.js', 'dist/js/index.js')
   })
 
 if (mix.inProduction()) {
-  mix.copy('*.html', '../demo/countryList')
-    .copyDirectory('dist', '../demo/countryList/dist')
-    .webpackConfig({
+  mix.webpackConfig({
       externals: {
         react: {
           root: 'React',
